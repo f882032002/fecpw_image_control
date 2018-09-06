@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/stylesheets/css/main.css" />
+  <link rel="stylesheet" href="/stylesheets/css-helper/jquery-ui.css">
+</head>
+
+<body>
+
+  <div id="app">
+    <div id="areaGroup">
+      <div class="title areaTitle">
+        <h1>
+          <%= title_area %>
+        </h1>
+      </div>
+
+      <ul class="groups">
+        <li class="area">Toilet</li>
+        <li class="area">BedRoom</li>
+        <li class="area">Kitchen</li>
+        <li class="area">LivingRoom</li>
+        <li class="area">DiningRoom</li>
+      </ul>
+
+    </div>
+
+    <div id="maps">
+      <div class="title mapsTitle">
+        <h1>
+          <%= title_maps %>
+        </h1>
+      </div>
+
+      <div id="map_img">
+        <div id="mask"></div>
+        <img src="http://www.allness.com.tw/public/upload/files/images/%E5%B9%B3%E9%9D%A2%E5%9C%96/%E5%8D%81%E8%88%88%E8%B7%AF%E7%94%B0%E5%AE%852.png"
+          alt="">
+      </div>
+
+      <div id="information">
+        <div class="warning">
+
+          <div class="title warnTitle">
+            <h2>
+              <%= title_warning %>
+            </h2>
+          </div>
+
+          <div class="infList">
+            <ul>
+              <% for(var i=0;i<'30';i++) {%>
+                <li>I am a test information !!!</li>
+                <% } %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="function_area">
+          <div class="title warnTitle">
+            <h2>
+              <%= title_function_area %>
+            </h2>
+          </div>
+          <div class="img_control">
+            <h3> Image Zoom </h3>
+            <button id="zoom">+</button>
+            <button id="zoom_Out">-</button>
+          </div>
+          <button class="store">store</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="device">
+      <div class="title deviceTitle">
+        <h1>
+          <%= title_device %>
+        </h1>
+      </div>
+
+      <ul class="items">
+
+        <% for(var i=0;i<'10';i++) {%>
+          <li class="item">
+            <img src="https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_46-128.png" alt="">
+            <p>二氧化碳感測器</p>
+          </li>
+
+          <li class="item">
+            <img src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/bulb-128.png" alt="">
+            <p>彩色電燈</p>
+          </li>
+
+          <li class="item">
+            <img src="https://cdn0.iconfinder.com/data/icons/good-weather-1/96/weather_icons-64-128.png" alt="">
+            <p>紅外線體溫計</p>
+          </li>
+
+          <li class="item">
+            <img src="https://cdn2.iconfinder.com/data/icons/architecture-interior/24/architecture-interior-30-128.png" alt="">
+            <p>門磁感測器</p>
+          </li>
+
+          <li class="item">
+            <img src="https://cdn2.iconfinder.com/data/icons/donkey/800/19-128.png" alt="">
+            <p>智慧插座</p>
+          </li>
+
+          <% } %>
+
+
+      </ul>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="/javascripts/js-helper/jquery.js"></script>
+  <script src="/javascripts/main.js"></script>
+  <script src="/javascripts/js-helper/jquery-ui.js"></script>
+</body>
+
+</html>
