@@ -18,7 +18,7 @@ $(document).ready(() => {
       revert: "invalid",
     });
   });
-  $()
+  
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Area Group) end ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   
   
