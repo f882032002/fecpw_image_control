@@ -104,7 +104,7 @@ button:hover {
 #app #areaGroup .groups {
   text-align: center;
   height: 92.5%;
-  overflow: auto;
+  overflow-y: auto;
   padding: 0;
 }
 
@@ -127,28 +127,16 @@ button:hover {
 }
 
 #app #maps #map_img {
+  background-color: rgba(255, 192, 203, 0.5);
   position: relative;
-  height: 80%;
+  width: 100%;
+  height: 76.3%;
   overflow: auto;
 }
 
-#app #maps #map_img #mask {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(255, 192, 203, 0.5);
-  z-index: 2;
-}
-
 #app #maps #map_img img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  width: 80%;
+  margin-top: 50px;
+  width: 100%;
 }
 
 #app #maps #information {
@@ -183,7 +171,7 @@ button:hover {
 
 #app #maps #information .warning .infList {
   height: 165px;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 #app #maps #information .function_area {
@@ -193,32 +181,27 @@ button:hover {
 }
 
 #app #maps #information .function_area .img_control {
-  text-align: center;
-  position: absolute;
-  top: 82%;
-  left: 20%;
-  -webkit-transform: translateX(-20%) translateY(-82%);
-          transform: translateX(-20%) translateY(-82%);
-  width: 120px;
-  height: 100px;
-  padding: 10px;
+  width: 50%;
+  margin-left: 5px;
+  padding: 3px 0;
   background-color: #65A8A6;
   color: #F8ECC2;
 }
 
-#app #maps #information .function_area .img_control h2 {
-  margin: 0;
-  margin-bottom: 25px;
-}
-
-#app #maps #information .function_area .img_control #zoom {
-  margin-right: 30px;
+#app #maps #information .function_area .img_control h3,
+#app #maps #information .function_area .img_control button {
+  margin-left: 8px;
+  display: inline-block;
 }
 
 #app #maps #information .function_area .img_control button {
-  font-size: 36px;
+  font-size: 25px;
   font-weight: 700;
   background-color: #F8ECC2;
+  color: #65A8A6;
+}
+
+#app #maps #information .function_area .maps_name {
   color: #65A8A6;
 }
 
@@ -242,7 +225,7 @@ button:hover {
 #app #device .items {
   padding: 0;
   text-align: center;
-  overflow: auto;
+  overflow-y: auto;
   height: 92.5%;
 }
 

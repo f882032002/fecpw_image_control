@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     title_area: 'Area Group',
     title_device: 'Device List',
     title_warning: 'Log',
-    title_function_area: 'Control'
+    title_function_area: 'Control & Information'
   });
 });
 

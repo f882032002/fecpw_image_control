@@ -60,7 +60,7 @@ html,body{
         .groups{
             text-align: center;
             height: 92.5%;
-            overflow: auto;
+            overflow-y: auto;
             padding: 0;
             .area{
                 background-color: $color_function;
@@ -83,24 +83,14 @@ html,body{
         height: 100%;
         width: 75%;
         #map_img{
+            background-color: $color_mask;
             position: relative;
-            height: 80%;
+            width: 100%;
+            height: 76.3%;
             overflow: auto;
-            #mask{
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background-color: rgba(pink,0.5);
-                z-index: 2;
-            }
             img{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translateX(-50%) translateY(-50%);
-                width: 80%;
+                margin-top: 50px;
+                width: 100%;
             }
         }
 
@@ -125,7 +115,7 @@ html,body{
                 width: 50%;
                 .infList{
                     height: 165px;
-                    overflow: auto;
+                    overflow-y: auto;
                 }
             }
 
@@ -138,29 +128,24 @@ html,body{
                 width: 50%;
                 height: 100%;
                 .img_control{
-                    text-align: center;
-                    position: absolute;
-                    top: 82%;
-                    left: 20%;
-                    transform: translateX(-20%) translateY(-82%);
-                    width: 120px;
-                    height: 100px;
-                    padding: 10px;
+                    width: 50%;
+                    margin-left: 5px;
+                    padding: 3px 0;
                     background-color: $color_main;
                     color: $color_function;
-                    h2{ 
-                        margin: 0; 
-                        margin-bottom: 25px;
-                    }
-                    #zoom{
-                        margin-right: 30px;
+                    h3,button{ 
+                        margin-left: 8px;
+                        display: inline-block;
                     }
                     button{
-                        font-size: 36px;
+                        font-size: 25px;
                         font-weight: 700;
                         background-color:  $color_function;
                         color: $color_main;
                     }
+                }
+                .maps_name{
+                    color: $color_main;
                 }
                 .store{
                     position: absolute;
@@ -193,7 +178,7 @@ html,body{
         .items{
             padding: 0;
             text-align: center;
-            overflow: auto;
+            overflow-y: auto;
             height: 92.5%;
             .item{
                 position: relative;
