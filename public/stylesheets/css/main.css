@@ -1,6 +1,9 @@
 @charset "UTF-8";
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ all ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-html, body {
+
+html,
+body {
   margin: 0;
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -15,6 +18,7 @@ button {
   border: none;
   cursor: pointer;
 }
+
 button:hover {
   opacity: 0.7;
 }
@@ -25,47 +29,63 @@ button:hover {
   color: #F8ECC2;
   padding: 15px 0;
 }
+
 .title h1 {
   margin: 0;
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ all ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 ::-webkit-scrollbar {
   width: 13px;
 }
 
 /* 滾動條整體 */
+
 ::-webkit-scrollbar-track {
   background-color: #65A8A6;
 }
 
 /* 外層軌道*/
+
 ::-webkit-scrollbar-track-piece {
   background-color: #65A8A6;
 }
 
 /* 內層軌道，除去滾動條中間部分 */
+
 ::-webkit-scrollbar-corner {
   background-color: #65A8A6;
 }
 
 /* 邊角 */
+
 ::-webkit-scrollbar-thumb {
   background-color: #F8ECC2;
   border: solid 3px #65A8A6;
 }
 
 /* 滾動條裡面可以拖的那個 */
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 #app {
   width: 100%;
   min-width: 1024px;
   background-color: #F8ECC2;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -73,28 +93,31 @@ button:hover {
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
+
 #app #areaGroup {
   width: 10%;
   background-color: #65A8A6;
   height: 100%;
   padding: 0 10px;
 }
+
 #app #areaGroup .groups {
   text-align: center;
   height: 92.5%;
   overflow: auto;
   padding: 0;
 }
+
 #app #areaGroup .groups .area {
   background-color: #F8ECC2;
-  box-shadow: 6px 3px 5px -2px #65A8A6;
   z-index: 9;
   color: #65A8A6;
-  width: 200px;
+  width: 150px;
   height: 200px;
   margin: 0 auto;
   margin-bottom: 10px;
 }
+
 #app #maps {
   position: relative;
   height: 100%;
@@ -102,11 +125,13 @@ button:hover {
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
+
 #app #maps #map_img {
   position: relative;
   height: 80%;
   overflow: auto;
 }
+
 #app #maps #map_img #mask {
   position: absolute;
   top: 0;
@@ -116,68 +141,87 @@ button:hover {
   background-color: rgba(255, 192, 203, 0.5);
   z-index: 2;
 }
+
 #app #maps #map_img img {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
   width: 80%;
 }
+
 #app #maps #information {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 220px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   z-index: 3;
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
+
 #app #maps #information .warnTitle h2 {
   margin: 0;
 }
+
 #app #maps #information .warning {
-  border-right: solid 15px #65A8A6;
+  border-right: solid 13px #65A8A6;
   width: 50%;
 }
+
 #app #maps #information .warning .infList {
   height: 165px;
   overflow: auto;
 }
+
 #app #maps #information .function_area {
   position: relative;
   width: 50%;
   height: 100%;
 }
+
 #app #maps #information .function_area .img_control {
   text-align: center;
   position: absolute;
   top: 82%;
   left: 20%;
-  transform: translateX(-20%) translateY(-82%);
+  -webkit-transform: translateX(-20%) translateY(-82%);
+          transform: translateX(-20%) translateY(-82%);
   width: 120px;
   height: 100px;
   padding: 10px;
   background-color: #65A8A6;
   color: #F8ECC2;
 }
+
 #app #maps #information .function_area .img_control h2 {
   margin: 0;
   margin-bottom: 25px;
 }
+
 #app #maps #information .function_area .img_control #zoom {
   margin-right: 30px;
 }
+
 #app #maps #information .function_area .img_control button {
   font-size: 36px;
   font-weight: 700;
   background-color: #F8ECC2;
   color: #65A8A6;
 }
+
 #app #maps #information .function_area .store {
   position: absolute;
   bottom: 10px;
@@ -188,17 +232,20 @@ button:hover {
   background-color: #65A8A6;
   color: #F8ECC2;
 }
+
 #app #device {
   width: 15%;
   background-color: #65A8A6;
   height: 100%;
 }
+
 #app #device .items {
   padding: 0;
   text-align: center;
   overflow: auto;
   height: 92.5%;
 }
+
 #app #device .items .item {
   position: relative;
   z-index: 10;
@@ -210,20 +257,23 @@ button:hover {
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 5px;
-  box-shadow: 6px 3px 5px -2px #65A8A6;
+  -webkit-box-shadow: 6px 3px 5px -2px #65A8A6;
+          box-shadow: 6px 3px 5px -2px #65A8A6;
 }
+
 #app #device .items .item img {
   width: 70px;
   height: 70px;
 }
+
 #app #device .items .item p {
   position: absolute;
   top: 70%;
   left: 50%;
-  transform: translateX(-50%) translateY(-70%);
+  -webkit-transform: translateX(-50%) translateY(-70%);
+          transform: translateX(-50%) translateY(-70%);
   width: 100%;
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-/*# sourceMappingURL=main.css.map */

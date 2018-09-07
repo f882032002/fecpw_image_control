@@ -12,11 +12,16 @@ $(document).ready(() => {
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Area Group) start ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
   $(() => {
-    $( ".area" ).draggable({
+    $( '.area' ).draggable({
       cursor: 'pointer',
       helper: "clone",
       revert: "invalid",
     });
+  });
+
+  $(() => { 
+    $('')
+    
   });
   
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Area Group) end ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -25,7 +30,7 @@ $(document).ready(() => {
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Devices) start ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   
   $(() => {
-    $( ".item" ).draggable({
+    $( '.item' ).draggable({
       cursor: 'pointer',
       helper: "clone",
       revert: "invalid",

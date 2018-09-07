@@ -11,8 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
- mix.sass('public/stylesheets/main.scss', '/public/stylesheets/css/main.css')
-    .setPublicPath('/public/stylesheets/css/main.css');
+ mix.sass('views/assets/sass/main.scss', 'public/stylesheets/css')
 
 // Full API
 // mix.js(src, output);
@@ -51,3 +50,12 @@ let mix = require('laravel-mix');
 //   uglify: {}, // Uglify-specific options. https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
 //   postCss: [] // Post-CSS options: https://github.com/postcss/postcss/blob/master/docs/plugins.md
 // });
+
+
+var LiveReloadPlugin = require('webpack-livereload-plugin');
+
+mix.webpackConfig({
+    plugins: [
+        new LiveReloadPlugin()
+    ]
+});
