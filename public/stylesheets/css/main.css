@@ -7,6 +7,7 @@ body {
   margin: 0;
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #65A8A6;
 }
 
 li {
@@ -34,7 +35,8 @@ button:hover {
   margin: 0;
 }
 
-.del_btn {
+.del_btn,
+.new_btn {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -45,7 +47,10 @@ button:hover {
   color: #65A8A6;
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ all ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+.new_btn {
+  top: 0;
+  left: 0;
+}
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -78,8 +83,6 @@ button:hover {
   border: solid 3px #65A8A6;
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
@@ -96,10 +99,7 @@ button:hover {
       -ms-flex-align: start;
           align-items: flex-start;
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
 
@@ -112,7 +112,7 @@ button:hover {
 
 #app #areaGroup .groups {
   text-align: center;
-  height: 92.5%;
+  height: 91%;
   overflow-y: auto;
   padding: 0;
 }
@@ -133,7 +133,6 @@ button:hover {
   height: 100%;
   width: 75%;
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
 
 #app #maps #map_img {
@@ -144,7 +143,11 @@ button:hover {
   overflow: auto;
 }
 
-#app #maps #map_img img {
+#app #maps #map_img .img_div {
+  color: black;
+}
+
+#app #maps #map_img .img_div img {
   margin-top: 50px;
   width: 100%;
 }
@@ -153,7 +156,7 @@ button:hover {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 220px;
+  height: 219px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -165,8 +168,6 @@ button:hover {
           align-items: flex-start;
   z-index: 3;
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
 
@@ -202,13 +203,14 @@ button:hover {
 #app #maps #information .function_area .img_control button {
   margin-left: 8px;
   display: inline-block;
-}
-
-#app #maps #information .function_area .img_control button {
   font-size: 25px;
   font-weight: 700;
   background-color: #F8ECC2;
   color: #65A8A6;
+}
+
+#app #maps #information .function_area .img_control h3 {
+  padding: 0 5px;
 }
 
 #app #maps #information .function_area .maps_name {
@@ -246,7 +248,7 @@ button:hover {
   color: #65A8A6;
   display: inline-block;
   width: 80px;
-  height: 100px;
+  height: 120px;
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 5px;
@@ -255,18 +257,21 @@ button:hover {
 }
 
 #app #device .items .item img {
-  width: 70px;
-  height: 70px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-30%);
+          transform: translateX(-50%) translateY(-30%);
+  width: 60px;
+  height: 60px;
 }
 
 #app #device .items .item p {
   position: absolute;
   top: 78%;
   left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-70%);
-          transform: translateX(-50%) translateY(-70%);
+  -webkit-transform: translateX(-50%) translateY(-78%);
+          transform: translateX(-50%) translateY(-78%);
   width: 100%;
 }
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 

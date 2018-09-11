@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: $color_main;
 }
 
 li {
@@ -31,7 +32,7 @@ button {
     }
 }
 
-.del_btn{
+.del_btn,.new_btn{
     position: absolute;
     top: 0px;
     right: 0px;
@@ -41,8 +42,11 @@ button {
     background-color: transparent;
     color: $color_main;
 }
+.new_btn{
+    top: 0;
+    left: 0;
+}
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ all ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 ::-webkit-scrollbar {
@@ -70,7 +74,6 @@ button {
     border: solid 3px $color_main;
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -83,7 +86,8 @@ button {
     justify-content: space-between;
     align-items: flex-start;
 
-    /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
     #areaGroup {
         width: 10%;
         background-color: $color_main;
@@ -92,7 +96,7 @@ button {
 
         .groups {
             text-align: center;
-            height: 92.5%;
+            height: 91%;
             overflow-y: auto;
             padding: 0;
 
@@ -109,8 +113,8 @@ button {
         }
     }
 
-    /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-    /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
     #maps {
         position: relative;
         height: 100%;
@@ -122,18 +126,22 @@ button {
             width: 100%;
             height: 77.4%;
             overflow: auto;
-            img {
-                margin-top: 50px;
-                width: 100%;
-            }
+            .img_div{
+                color: black;
+                img {
+                    margin-top: 50px;
+                    width: 100%;
+                }    
+            }  
         }
 
-        /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
         #information {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 220px;
+            height: 219px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -145,7 +153,8 @@ button {
                 }
             }
 
-            /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
             .warning {
                 border-right: solid 13px $color_main;
                 width: 50%;
@@ -156,8 +165,8 @@ button {
                 }
             }
 
-            /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-            /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
             .function_area {
                 position: relative;
                 width: 50%;
@@ -174,13 +183,13 @@ button {
                     button {
                         margin-left: 8px;
                         display: inline-block;
-                    }
-
-                    button {
                         font-size: 25px;
                         font-weight: 700;
                         background-color: $color_function;
                         color: $color_main;
+                    }
+                    h3 {
+                        padding: 0 5px;
                     }
                 }
 
@@ -199,17 +208,11 @@ button {
                     color: $color_function;
                 }
             }
-
-            /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ function_area ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
         }
-
-        /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ information ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
     }
 
-    /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-
-    /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
     #device {
         width: 15%;
         background-color: $color_main;
@@ -228,31 +231,29 @@ button {
                 color: $color_main;
                 display: inline-block;
                 width: 80px;
-                height: 100px;
+                height: 120px;
                 border-radius: 8px;
                 padding: 10px;
                 margin-bottom: 5px;
                 box-shadow: 6px 3px 5px -2px $color_main;
 
                 img {
-                    width: 70px;
-                    height: 70px;
+                    position: absolute;
+                    top: 30%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-30%);
+                    width: 60px;
+                    height: 60px;
                 }
 
                 p {
                     position: absolute;
                     top: 78%;
                     left: 50%;
-                    transform: translateX(-50%) translateY(-70%);
+                    transform: translateX(-50%) translateY(-78%);
                     width: 100%;
                 }
             }
         }
     }
-
-    /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 }
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-
