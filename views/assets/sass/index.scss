@@ -79,6 +79,11 @@ button {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
     width: 100%;
     min-width: 1024px;
     background-color: $color_function;
@@ -105,6 +110,7 @@ button {
                 background-color: $color_function;
                 z-index: 9;
                 color: $color_main;
+                border: solid 2px $color_main;
                 width: 150px;
                 height: 200px;
                 margin: 0 auto;
@@ -229,6 +235,7 @@ button {
                 z-index: 10;
                 background-color: $color_function;
                 color: $color_main;
+                border: solid 2px $color_main;
                 display: inline-block;
                 width: 80px;
                 height: 120px;

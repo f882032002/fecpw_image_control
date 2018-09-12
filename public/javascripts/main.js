@@ -1,16 +1,9 @@
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ colors ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 let Toilet_color = '#93E6CE'
 let LivingRoom_color = '#93CEE6'
 let BedRoom_color = '#CEBEEB'
-
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 讓整個畫面自適應螢幕高度 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-$(document).ready(() => {
-  let _height = $(window).height();
-  $('#app').css('height', _height)
-});
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ API ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -19,13 +12,10 @@ let apiUrl = '';
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let data = {
-
   maps: [ // 地圖們
-
     { // 一樓平面圖
       name: '1F',
-      areas: [
-        { // 一樓廁所
+      areas: [{ // 一樓廁所
           name: 'Toilet',
           x: 0,
           y: 0,
@@ -33,19 +23,25 @@ let data = {
           color: Toilet_color,
           devices: [ // 一樓廁所裡的設備
             {
+              _id: 't001',
               name: 'CO₂ Sensor',
-              icon: '/images/co2.svg',
-              color: Toilet_color
+              value: 'co2',
+              x: 0,
+              y: 0
             },
             {
-              name: 'Infrared Thermometer',
-              icon: '/images/Thermometer.svg',
-              color: Toilet_color
-            },
-            {
+              _id: 't002',
               name: 'Smart Socket',
-              icon: '/images/Socket.svg',
-              color: Toilet_color
+              value: 'socket',
+              x: 0,
+              y: 0
+            },
+            {
+              _id: 't003',
+              name: 'Infrared Thermometer',
+              value: 'thermometer',
+              x: 0,
+              y: 0
             }
           ]
         },
@@ -57,20 +53,26 @@ let data = {
           point: '',
           devices: [ // 一樓房間裡的設備
             {
+              _id: 'b001',
               name: 'Color Light',
-              icon: '/images/light.svg',
-              color: BedRoom_color
+              value: 'light',
+              x: 0,
+              y: 0
             },
             {
-              name: 'Door Magnetic Sensor',
-              icon: '/images/door.svg',
-              color: BedRoom_color
-            },
-            {
+              _id: 'b002',
               name: 'Smart Socket',
-              icon: '/images/Socket.svg',
-              color: BedRoom_color
-            }
+              value: 'socket',
+              x: 0,
+              y: 0
+            },
+            {
+              _id: 'b003',
+              name: 'Door Magnetic Sensor',
+              value: 'door',
+              x: 0,
+              y: 0
+            },
           ]
         },
         { // 一樓客廳
@@ -81,24 +83,32 @@ let data = {
           point: '',
           devices: [ // 一樓客廳裡的設備
             {
+              _id: 'l001',
               name: 'Color Light',
-              icon: '/images/light.svg',
-              color: LivingRoom_color
+              value: 'light',
+              x: 0,
+              y: 0
             },
             {
+              _id: 'l002',
               name: 'Door Magnetic Sensor',
-              icon: '/images/door.svg',
-              color: LivingRoom_color
+              value: 'door',
+              x: 0,
+              y: 0
             },
             {
+              _id: 'l003',
               name: 'Smart Socket',
-              icon: '/images/Socket.svg',
-              color: LivingRoom_color
+              value: 'socket',
+              x: 0,
+              y: 0
             },
             {
+              _id: 'l004',
               name: 'Infrared Thermometer',
-              icon: '/images/Thermometer.svg',
-              color: LivingRoom_color
+              value: 'thermometer',
+              x: 0,
+              y: 0
             }
           ]
         }
@@ -120,59 +130,89 @@ let btn = {
   }
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+let icon = {
+  co2: '/images/co2.svg',
+  door: '/images/door.svg',
+  light: '/images/light.svg',
+  socket: '/images/Socket.svg',
+  thermometer: '/images/Thermometer.svg',
+}
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+function myIcon(d) {
+  `
+  <img src="${d}" alt="">
+`
+};
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myDevice(a, b, c) {
+function myDevice(a) {
   return `
-    <li class= "item" style="background-color:${c}">
-      <img src="${b}" alt="">
-      <p>${a}</p>
-      <button class= "${btn.del.name}">${btn.del.icon}</button>
-      <button class= "${btn.update.name}">${btn.update.icon}</button>
-    </li>  
-  `
+      <li class="item">
+        <p>${a}</p>
+        <button class="${btn.del.name}">${btn.del.icon}</button>
+        <button class="${btn.update.name}">${btn.update.icon}</button>
+      </li>  
+    `
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Area li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myArea(b, c) {
+function myArea(c) {
   return `
-    <li class= "area" style="background-color:${c}">${b}
-      <button class= "${btn.del.name}">${btn.del.icon}</button>
-      <button class= "${btn.update.name}">${btn.update.icon}</button>
-    </li>  
-  `
+      <li class="area">${c}
+        <button class="${btn.del.name}">${btn.del.icon}</button>
+        <button class="${btn.update.name}">${btn.update.icon}</button>
+      </li>  
+    `
 }
-
-
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Show List ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 function showList() {
 
-  data.maps.forEach((val, id) => {
-    console.log(val.areas)
-    val.areas.forEach((val, id) => {
-      $('.groups').append(myArea(val.name, val.color))
-        .find('.del_btn').click(()=>{
-        })
+  data.maps.forEach((map, mapID) => {
 
-      val.devices.forEach((val, id) => {
-        $('.items').append(myDevice(val.name, val.icon, val.color))
-          .find('.del_btn').click(()=>{
-          })
+    map.areas.forEach((area, areaID) => {
+      let areaHtml = myArea(area.name)
+      
+      $(areaHtml)
+        .find('.del_btn')
+        .on('click', function () {
+          $(this).parent().remove()
+        }).end()
+        .appendTo('.groups')
+
+
+      area.devices.forEach((device, deviceID) => {
+        let deviceHtml = myDevice(device.name)
+        switch(device.value){
+          case 'co2':
+            myIcon(icon.co2).appendTo(deviceHtml)
+          break;  
+
+        };
+
+        $(deviceHtml)
+          .find('.del_btn')
+          .on('click', function () {
+            $(this).parent().remove()
+          }).end()
+          .appendTo('.items')
       })
     })
   })
 };
 showList();
 
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
 
-  
 
 
 
@@ -242,4 +282,3 @@ $(() => {
     );
   });
 })
-

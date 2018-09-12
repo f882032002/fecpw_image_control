@@ -86,6 +86,11 @@ button:hover {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   width: 100%;
   min-width: 1024px;
   background-color: #F8ECC2;
@@ -122,6 +127,7 @@ button:hover {
   background-color: #F8ECC2;
   z-index: 9;
   color: #65A8A6;
+  border: solid 2px #65A8A6;
   width: 150px;
   height: 200px;
   margin: 0 auto;
@@ -246,6 +252,7 @@ button:hover {
   z-index: 10;
   background-color: #F8ECC2;
   color: #65A8A6;
+  border: solid 2px #65A8A6;
   display: inline-block;
   width: 80px;
   height: 120px;
