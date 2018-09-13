@@ -1,4 +1,3 @@
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ colors ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let Toilet_color = '#93E6CE'
@@ -19,25 +18,27 @@ let data = {
           name: 'Toilet',
           x: 0,
           y: 0,
+          _id: 'ta001',
+          value: 'toilet',
           point: '',
           color: Toilet_color,
           devices: [ // 一樓廁所裡的設備
             {
-              _id: 't001',
+              _id: 'td001',
               name: 'CO₂ Sensor',
               value: 'co2',
               x: 0,
               y: 0
             },
             {
-              _id: 't002',
+              _id: 'td002',
               name: 'Smart Socket',
               value: 'socket',
               x: 0,
               y: 0
             },
             {
-              _id: 't003',
+              _id: 'td003',
               name: 'Infrared Thermometer',
               value: 'thermometer',
               x: 0,
@@ -49,25 +50,27 @@ let data = {
           name: 'BedRoom',
           x: 0,
           y: 0,
+          _id: 'ba001',
+          value: 'bedroom',
           color: BedRoom_color,
           point: '',
           devices: [ // 一樓房間裡的設備
             {
-              _id: 'b001',
+              _id: 'bd001',
               name: 'Color Light',
               value: 'light',
               x: 0,
               y: 0
             },
             {
-              _id: 'b002',
+              _id: 'bd002',
               name: 'Smart Socket',
               value: 'socket',
               x: 0,
               y: 0
             },
             {
-              _id: 'b003',
+              _id: 'bd003',
               name: 'Door Magnetic Sensor',
               value: 'door',
               x: 0,
@@ -79,32 +82,34 @@ let data = {
           name: 'LivingRoom',
           x: 0,
           y: 0,
+          _id: 'la001',
+          value: 'livingRoom',
           color: LivingRoom_color,
           point: '',
           devices: [ // 一樓客廳裡的設備
             {
-              _id: 'l001',
+              _id: 'ld001',
               name: 'Color Light',
               value: 'light',
               x: 0,
               y: 0
             },
             {
-              _id: 'l002',
+              _id: 'ld002',
               name: 'Door Magnetic Sensor',
               value: 'door',
               x: 0,
               y: 0
             },
             {
-              _id: 'l003',
+              _id: 'ld003',
               name: 'Smart Socket',
               value: 'socket',
               x: 0,
               y: 0
             },
             {
-              _id: 'l004',
+              _id: 'ld004',
               name: 'Infrared Thermometer',
               value: 'thermometer',
               x: 0,
@@ -140,19 +145,12 @@ let icon = {
   thermometer: '/images/Thermometer.svg',
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-function myIcon(d) {
-  `
-  <img src="${d}" alt="">
-`
-};
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myDevice(a) {
+function myDevice(a, b) {
   return `
       <li class="item">
+        <img src="${b}" alt="">
         <p>${a}</p>
         <button class="${btn.del.name}">${btn.del.icon}</button>
         <button class="${btn.update.name}">${btn.update.icon}</button>
@@ -171,6 +169,19 @@ function myArea(c) {
     `
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+function del(x) {
+  let y =
+
+    $(x.view).find('.del_btn')
+    .on('click', function () {
+      $(this).parent().remove()
+
+    }).end()
+  return y
+}
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Show List ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 function showList() {
@@ -178,53 +189,48 @@ function showList() {
   data.maps.forEach((map, mapID) => {
 
     map.areas.forEach((area, areaID) => {
-      let areaHtml = myArea(area.name)
-      
-      $(areaHtml)
-        .find('.del_btn')
-        .on('click', function () {
-          $(this).parent().remove()
-        }).end()
-        .appendTo('.groups')
 
+      let areaHtml = {
+        view: myArea(area.name),
+        key: area._id,
+        self: map.areas
+      }
+
+      $(del(areaHtml)).appendTo('.groups')
 
       area.devices.forEach((device, deviceID) => {
-        let deviceHtml = myDevice(device.name)
-        switch(device.value){
-          case 'co2':
-            myIcon(icon.co2).appendTo(deviceHtml)
-          break;  
 
+        let x; // 放入 image
+        switch (device.value) {
+          case 'co2':
+            x = icon.co2;
+            break;
+          case 'door':
+            x = icon.door;
+            break;
+          case 'light':
+            x = icon.light;
+            break;
+          case 'socket':
+            x = icon.socket;
+            break;
+          case 'thermometer':
+            x = icon.thermometer;
+            break;
         };
 
-        $(deviceHtml)
-          .find('.del_btn')
-          .on('click', function () {
-            $(this).parent().remove()
-          }).end()
-          .appendTo('.items')
+        let deviceHtml = {
+          view: myDevice(device.name, x),
+          key: device.value,
+          self: area.devices
+        }
+
+        $(del(deviceHtml)).appendTo('.items')
       })
     })
   })
 };
 showList();
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Area Group) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -235,9 +241,6 @@ $(() => {
     revert: "invalid",
   });
 });
-
-
-
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Droppable (Map) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -256,29 +259,42 @@ $(() => {
   });
 });
 
-
-
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 縮放按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
   let _width = 100; // 初始寬度
+  let _top = 240;
+  let _left = 630;
 
-  $('#zoom').click(() => { // 放大圖片
+  function init(){
+    $('.img_div').css('width', _width + '%')
+    $('.point').css({
+      'top': _top + 'px',
+      'left': _left + 'px'
+    })
+  };
+  init();
+  
+
+  $('#zoom').on('click', function () { // 放大圖片
     (_width == 300) ? (
-      this.unbind()
+      console.log('Has been max width !!')
     ) : (
       (_width += 10),
-      $('#map_img img').css('width', _width + '%')
+      (_top += 20),
+      (_left += 64),
+      init()
     );
   });
 
-  $('#zoom_Out').click(() => { // 縮小圖片
+  $('#zoom_Out').on('click', function () { // 縮小圖片
     (_width == 100) ? (
-      this.unbind()
+      console.log('Has been min width !!')
     ) : (
       (_width -= 10),
-      $('#map_img img').css('width', _width + '%')
+      (_top -= 20),
+      (_left -= 64),
+      init()
     );
   });
 })
