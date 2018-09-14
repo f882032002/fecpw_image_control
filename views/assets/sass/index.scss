@@ -85,7 +85,6 @@ button {
     left: 0;
     bottom: 0;
     width: 100%;
-    min-width: 1024px;
     background-color: $color_function;
     display: flex;
     justify-content: space-between;
@@ -135,6 +134,7 @@ button {
             .img_div{
                 position: relative;
                 color: black;
+                width: 100%;
                 img {
                     margin-top: 50px;
                     width: 100%;
@@ -212,7 +212,7 @@ button {
                 .maps_name {
                     color: $color_main;
                 }
-
+                
                 .store {
                     position: absolute;
                     bottom: 10px;

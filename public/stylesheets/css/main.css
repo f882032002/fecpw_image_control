@@ -92,7 +92,6 @@ button:hover {
   left: 0;
   bottom: 0;
   width: 100%;
-  min-width: 1024px;
   background-color: #F8ECC2;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -152,6 +151,7 @@ button:hover {
 #app #maps #map_img .img_div {
   position: relative;
   color: black;
+  width: 100%;
 }
 
 #app #maps #map_img .img_div img {

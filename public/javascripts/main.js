@@ -1,10 +1,23 @@
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ colors ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ MinWidth ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+$(() => {
+
+  let window_min = $(window).width();
+
+  $('#app').css('min-width', window_min);
+
+})
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ FileReader ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Colors ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let Toilet_color = '#93E6CE'
 let LivingRoom_color = '#93CEE6'
 let BedRoom_color = '#CEBEEB'
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ API ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ API & Maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let apiUrl = '';
 
@@ -14,6 +27,7 @@ let data = {
   maps: [ // 地圖們
     { // 一樓平面圖
       name: '1F',
+      map_url: '/images_map/1F.png',
       areas: [{ // 一樓廁所
           name: 'Toilet',
           x: 0,
@@ -22,29 +36,7 @@ let data = {
           value: 'toilet',
           point: '',
           color: Toilet_color,
-          devices: [ // 一樓廁所裡的設備
-            {
-              _id: 'td001',
-              name: 'CO₂ Sensor',
-              value: 'co2',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'td002',
-              name: 'Smart Socket',
-              value: 'socket',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'td003',
-              name: 'Infrared Thermometer',
-              value: 'thermometer',
-              x: 0,
-              y: 0
-            }
-          ]
+          devices: [ /* 一樓廁所裡的設備 */ ]
         },
         { // 一樓房間
           name: 'BedRoom',
@@ -54,29 +46,7 @@ let data = {
           value: 'bedroom',
           color: BedRoom_color,
           point: '',
-          devices: [ // 一樓房間裡的設備
-            {
-              _id: 'bd001',
-              name: 'Color Light',
-              value: 'light',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'bd002',
-              name: 'Smart Socket',
-              value: 'socket',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'bd003',
-              name: 'Door Magnetic Sensor',
-              value: 'door',
-              x: 0,
-              y: 0
-            },
-          ]
+          devices: [ /* 一樓房間裡的設備 */ ]
         },
         { // 一樓客廳
           name: 'LivingRoom',
@@ -86,36 +56,7 @@ let data = {
           value: 'livingRoom',
           color: LivingRoom_color,
           point: '',
-          devices: [ // 一樓客廳裡的設備
-            {
-              _id: 'ld001',
-              name: 'Color Light',
-              value: 'light',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'ld002',
-              name: 'Door Magnetic Sensor',
-              value: 'door',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'ld003',
-              name: 'Smart Socket',
-              value: 'socket',
-              x: 0,
-              y: 0
-            },
-            {
-              _id: 'ld004',
-              name: 'Infrared Thermometer',
-              value: 'thermometer',
-              x: 0,
-              y: 0
-            }
-          ]
+          devices: [ /* 一樓客廳裡的設備 */ ]
         }
       ]
     }
@@ -138,10 +79,18 @@ let btn = {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let icon = {
+  co: '/images/co.svg',
   co2: '/images/co2.svg',
+  pir: '/images/pir.svg',
+  sos: '/images/sos.svg',
   door: '/images/door.svg',
+  smoke: '/images/smoke.svg',
   light: '/images/light.svg',
+  water: '/images/water.svg',
   socket: '/images/Socket.svg',
+  gateway: '/images/gateway.svg',
+  q_module: '/images/q-module.svg',
+  door_lock: '/images/door-lock.svg',
   thermometer: '/images/Thermometer.svg',
 }
 
@@ -169,7 +118,16 @@ function myArea(c) {
     `
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+function myMap(d) {
+  return `
+    <img src="${d}" alt="">
+  `
+}
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 
 function del(x) {
   let y =
@@ -177,8 +135,9 @@ function del(x) {
     $(x.view).find('.del_btn')
     .on('click', function () {
       $(this).parent().remove()
-
+      del_fun(x.self)
     }).end()
+
   return y
 }
 
@@ -187,6 +146,9 @@ function del(x) {
 function showList() {
 
   data.maps.forEach((map, mapID) => {
+
+    $('.maps_name span').append(map.name)
+    $(myMap(map.map_url)).appendTo('.img_div')
 
     map.areas.forEach((area, areaID) => {
 
@@ -197,38 +159,83 @@ function showList() {
       }
 
       $(del(areaHtml)).appendTo('.groups')
-
-      area.devices.forEach((device, deviceID) => {
-
-        let x; // 放入 image
-        switch (device.value) {
-          case 'co2':
-            x = icon.co2;
-            break;
-          case 'door':
-            x = icon.door;
-            break;
-          case 'light':
-            x = icon.light;
-            break;
-          case 'socket':
-            x = icon.socket;
-            break;
-          case 'thermometer':
-            x = icon.thermometer;
-            break;
-        };
-
-        let deviceHtml = {
-          view: myDevice(device.name, x),
-          key: device.value,
-          self: area.devices
-        }
-
-        $(del(deviceHtml)).appendTo('.items')
-      })
     })
   })
+
+  response.forEach((device, deviceID) => {
+    
+    device.list.forEach((imgs,imgsID) => {
+
+      let _icon; // 放入 image
+
+      switch (imgs.value) {
+        case 'idc-gateway':
+          _icon = icon.gateway;
+          break;
+        case 'ids-co':
+          _icon = icon.co;
+          break;
+        case 'ids-co2':
+          _icon = icon.co2;
+          break;
+        case 'ids-door':
+          _icon = icon.door;
+          break;
+        case 'idc-light-rgb':
+          _icon = icon.light;
+          break;
+        case 'idc-plug':
+          _icon = icon.socket;
+          break;
+        case 'ids-thermo':
+          _icon = icon.thermometer;
+          break;
+        case 'ids-smoke':
+          _icon = icon.thermometer;
+          break;
+        case 'ids-gas':
+          _icon = icon.smoke;
+          break;
+        case 'ids-glass':
+          _icon = icon.thermometer;
+          break;
+        case 'ids-pir':
+          _icon = icon.pir;
+          break;
+        case 'ids-water':
+          _icon = icon.water;
+          break;
+        case 'idc-sos':
+          _icon = icon.thermometer;
+          break;
+        case 'ids-light':
+          _icon = icon.thermometer;
+          break;
+        case 'idc-door-lock':
+          _icon = icon.door_lock;
+          break;
+        case 'idc-q-module':
+          _icon = icon.q_module;
+          break;
+        case 'idc-water-valve':
+          _icon = icon.thermometer;
+          break;
+        case 'idc-gas-keeper':
+          _icon = icon.thermometer;
+          break;
+      };
+
+      let deviceHtml = {
+        view: myDevice(device.name, _icon),
+        key: device._id,
+        self: response
+      }
+
+      $(del(deviceHtml)).appendTo('.items')
+    })
+
+  })
+
 };
 showList();
 
@@ -266,7 +273,7 @@ $(() => {
   let _top = 240;
   let _left = 630;
 
-  function init(){
+  function init() {
     $('.img_div').css('width', _width + '%')
     $('.point').css({
       'top': _top + 'px',
@@ -274,7 +281,7 @@ $(() => {
     })
   };
   init();
-  
+
 
   $('#zoom').on('click', function () { // 放大圖片
     (_width == 300) ? (
