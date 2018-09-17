@@ -86,12 +86,6 @@ button:hover {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   background-color: #F8ECC2;
   display: -webkit-box;
   display: -ms-flexbox;

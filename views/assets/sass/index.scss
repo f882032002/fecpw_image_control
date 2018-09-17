@@ -5,6 +5,7 @@ body {
     padding: 0;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: $color_main;
+    
 }
 
 li {
@@ -79,12 +80,6 @@ button {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
     background-color: $color_function;
     display: flex;
     justify-content: space-between;

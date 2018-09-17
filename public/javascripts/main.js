@@ -1,15 +1,23 @@
+
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ MinWidth ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-$(() => {
-
+function width_init (){
   let window_min = $(window).width();
+  let window_h = $(window).height();
 
-  $('#app').css('min-width', window_min);
+  $('#app').css({
+    'min-width': window_min,
+    'height': window_h
+  })
+}
 
-})
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ FileReader ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
+$(document).ready(()=>{
+  width_init ()
+  $(window).resize(()=>{
+    width_init ()
+  })
+}); 
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Colors ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -28,7 +36,8 @@ let data = {
     { // 一樓平面圖
       name: '1F',
       map_url: '/images_map/1F.png',
-      areas: [{ // 一樓廁所
+      areas: [
+        { // 一樓廁所
           name: 'Toilet',
           x: 0,
           y: 0,
@@ -126,6 +135,26 @@ function myMap(d) {
   `
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+var mx, my;
+$(document).on('click', function (e) {
+  mx = e.offsetX;
+  my = e.offsetY;
+  _wave(mx, my);
+  
+});
+
+let mh = $('.img_div').height();
+let mw = $('.img_div').width();
+
+function _wave(i, j) {
+  console.log(`
+  ${Math.round(i) }, 
+  ${Math.round(j) },
+  `)
+}
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
@@ -145,12 +174,12 @@ function del(x) {
 
 function showList() {
 
-  data.maps.forEach((map, mapID) => {
+  data.maps.forEach((map, mapID) => { // Map 迴圈
 
     $('.maps_name span').append(map.name)
     $(myMap(map.map_url)).appendTo('.img_div')
 
-    map.areas.forEach((area, areaID) => {
+    map.areas.forEach((area, areaID) => { // Area in Maps
 
       let areaHtml = {
         view: myArea(area.name),
@@ -162,11 +191,11 @@ function showList() {
     })
   })
 
-  response.forEach((device, deviceID) => {
-    
-    device.list.forEach((imgs,imgsID) => {
+  response.forEach((device, deviceID) => { // 設備呼叫
 
-      let _icon; // 放入 image
+    device.list.forEach((imgs, imgsID) => {
+
+      let _icon ; // 放入 image
 
       switch (imgs.value) {
         case 'idc-gateway':
@@ -251,9 +280,7 @@ $(() => {
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Droppable (Map) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-// $(() => {
-//   $('#map_img img').droppable('.area', '.item');
-// });
+
 
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Devices) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -270,14 +297,14 @@ $(() => {
 
 $(() => {
   let _width = 100; // 初始寬度
-  let _top = 240;
-  let _left = 630;
+  let _top = 50;
+  let _left = 50;
 
   function init() {
     $('.img_div').css('width', _width + '%')
     $('.point').css({
-      'top': _top + 'px',
-      'left': _left + 'px'
+      'top': _top + '%',
+      'left': _left + '%'
     })
   };
   init();
@@ -288,8 +315,6 @@ $(() => {
       console.log('Has been max width !!')
     ) : (
       (_width += 10),
-      (_top += 20),
-      (_left += 64),
       init()
     );
   });
@@ -299,9 +324,10 @@ $(() => {
       console.log('Has been min width !!')
     ) : (
       (_width -= 10),
-      (_top -= 20),
-      (_left -= 64),
       init()
     );
   });
 })
+
+
+
