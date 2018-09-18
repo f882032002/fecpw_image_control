@@ -5,7 +5,7 @@ body {
     padding: 0;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: $color_main;
-    
+    min-width: 1024px;
 }
 
 li {
@@ -124,25 +124,13 @@ button {
             background-color: $color_mask;
             position: relative;
             width: 100%;
-            height: 77%;
+            height: 80%;
             overflow: auto;
             .img_div{
                 position: relative;
                 color: black;
                 width: 100%;
-                img {
-                    margin-top: 50px;
-                    width: 100%;
-                }
-                .point{
-                    position: absolute;
-                    width: 25px;
-                    height: 25px;
-                    background-image: url(/images/boom.svg);
-                    background-position: center;
-                    background-size: cover;
-                    z-index: 99;
-                }    
+                height: 100%;
             }  
         }
 
@@ -152,7 +140,7 @@ button {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 18%;
+            height: 15%;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -167,11 +155,10 @@ button {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ warning ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
             .warning {
-                border-right: solid 13px $color_main;
                 width: 50%;
-
+                height: 100%;
                 .infList {
-                    height: 165px;
+                    height: 70%;
                     overflow-y: auto;
                 }
             }
@@ -185,16 +172,12 @@ button {
 
                 .img_control {
                     width: 50%;
-                    margin-left: 5px;
-                    padding: 3px 0;
-                    background-color: $color_main;
                     color: $color_function;
 
                     h3,
                     button {
-                        margin-left: 8px;
                         display: inline-block;
-                        font-size: 25px;
+                        font-size: 20px;
                         font-weight: 700;
                         background-color: $color_function;
                         color: $color_main;
@@ -206,6 +189,9 @@ button {
 
                 .maps_name {
                     color: $color_main;
+                    h3 {
+                        padding: 0 5px;
+                    }
                 }
                 
                 .store {
@@ -269,3 +255,11 @@ button {
         }
     }
 }
+
+#pic1 {
+    stroke: black;
+    stroke-width: 3px;
+  }
+  #circle {
+    fill: transparent;
+  }

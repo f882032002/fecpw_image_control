@@ -2,22 +2,20 @@
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ MinWidth ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function width_init (){
-  let window_min = $(window).width();
-  let window_h = $(window).height();
+let window_h = $(window).height();
 
+function width_init() {
   $('#app').css({
-    'min-width': window_min,
     'height': window_h
   })
 }
 
-$(document).ready(()=>{
-  width_init ()
-  $(window).resize(()=>{
-    width_init ()
+$(document).ready(() => {
+  width_init()
+  $(window).resize(() => {
+    width_init()
   })
-}); 
+});
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Colors ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -36,8 +34,7 @@ let data = {
     { // 一樓平面圖
       name: '1F',
       map_url: '/images_map/1F.png',
-      areas: [
-        { // 一樓廁所
+      areas: [{ // 一樓廁所
           name: 'Toilet',
           x: 0,
           y: 0,
@@ -131,29 +128,62 @@ function myArea(c) {
 
 function myMap(d) {
   return `
-    <img src="${d}" alt="">
+  <svg id="svg" width="1900" height="1000" viewBox="0 0 1900 1000">
+    <image x="0" y="0" width="1900" height="1000" href="${d}"></image>
+    <circle cx="950" cy="500" r="5" fill="red">
+      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="1220" cy="731" r="5" fill="red">
+      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="723" cy="151" r="5" fill="red">
+      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="1159" cy="137" r="5" fill="red">
+      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="632" cy="678" r="5" fill="red">
+      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
+    </circle> 
+    <line x1="780" y1="290" x2="800" y2="320" stroke="red" stroke-width="3px"></line>
+    <line x1="800" y1="290" x2="780" y2="320" stroke="red" stroke-width="3px"></line>
+    <circle fill="red" cx="1024" cy="198" r="5">
+        <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
+    </circle>
+  </svg>
+    
   `
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-var mx, my;
-$(document).on('click', function (e) {
-  mx = e.offsetX;
-  my = e.offsetY;
-  _wave(mx, my);
-  
-});
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas On Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-let mh = $('.img_div').height();
-let mw = $('.img_div').width();
 
-function _wave(i, j) {
-  console.log(`
-  ${Math.round(i) }, 
-  ${Math.round(j) },
-  `)
-}
+$(()=>{
+
+  let mx, my;
+  let svg = $('#svg')
+
+  svg.on('click', function (e) {
+    mx = e.offsetX;
+    my = e.offsetY;
+    $(_wave(mx, my)).appendTo(svg);
+    svg.html(svg.html())
+  });
+
+  function _wave(i, j) {
+    return `
+    <rect 
+    x="${i - 25}" y="${j - 25}" 
+    fill="rgba(101, 168, 166, 0.5)" 
+    width="50" 
+    height="50" 
+    />
+    `
+  }
+
+})
+
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -177,7 +207,9 @@ function showList() {
   data.maps.forEach((map, mapID) => { // Map 迴圈
 
     $('.maps_name span').append(map.name)
-    $(myMap(map.map_url)).appendTo('.img_div')
+    $(
+      myMap(map.map_url)
+    ).appendTo('.img_div')
 
     map.areas.forEach((area, areaID) => { // Area in Maps
 
@@ -195,7 +227,7 @@ function showList() {
 
     device.list.forEach((imgs, imgsID) => {
 
-      let _icon ; // 放入 image
+      let _icon; // 放入 image
 
       switch (imgs.value) {
         case 'idc-gateway':
@@ -297,11 +329,15 @@ $(() => {
 
 $(() => {
   let _width = 100; // 初始寬度
+  let _height = 100; // 初始高度
   let _top = 50;
   let _left = 50;
 
   function init() {
-    $('.img_div').css('width', _width + '%')
+    $('.img_div').css({
+      'width': _width + '%',
+      'height': _height + '%'
+    })
     $('.point').css({
       'top': _top + '%',
       'left': _left + '%'
@@ -311,23 +347,22 @@ $(() => {
 
 
   $('#zoom').on('click', function () { // 放大圖片
-    (_width == 300) ? (
+    (_width == 300, _height == 300) ? (
       console.log('Has been max width !!')
     ) : (
       (_width += 10),
+      (_height += 10),
       init()
     );
   });
 
   $('#zoom_Out').on('click', function () { // 縮小圖片
-    (_width == 100) ? (
+    (_width == 100, _height == 100) ? (
       console.log('Has been min width !!')
     ) : (
       (_width -= 10),
+      (_height -= 10),
       init()
     );
   });
 })
-
-
-

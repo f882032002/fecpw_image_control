@@ -8,6 +8,7 @@ body {
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #65A8A6;
+  min-width: 1024px;
 }
 
 li {
@@ -138,7 +139,7 @@ button:hover {
   background-color: rgba(255, 192, 203, 0.5);
   position: relative;
   width: 100%;
-  height: 77%;
+  height: 80%;
   overflow: auto;
 }
 
@@ -146,28 +147,14 @@ button:hover {
   position: relative;
   color: black;
   width: 100%;
-}
-
-#app #maps #map_img .img_div img {
-  margin-top: 50px;
-  width: 100%;
-}
-
-#app #maps #map_img .img_div .point {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  background-image: url(/images/boom.svg);
-  background-position: center;
-  background-size: cover;
-  z-index: 99;
+  height: 100%;
 }
 
 #app #maps #information {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 18%;
+  height: 15%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -187,12 +174,12 @@ button:hover {
 }
 
 #app #maps #information .warning {
-  border-right: solid 13px #65A8A6;
   width: 50%;
+  height: 100%;
 }
 
 #app #maps #information .warning .infList {
-  height: 165px;
+  height: 70%;
   overflow-y: auto;
 }
 
@@ -204,17 +191,13 @@ button:hover {
 
 #app #maps #information .function_area .img_control {
   width: 50%;
-  margin-left: 5px;
-  padding: 3px 0;
-  background-color: #65A8A6;
   color: #F8ECC2;
 }
 
 #app #maps #information .function_area .img_control h3,
 #app #maps #information .function_area .img_control button {
-  margin-left: 8px;
   display: inline-block;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
   background-color: #F8ECC2;
   color: #65A8A6;
@@ -226,6 +209,10 @@ button:hover {
 
 #app #maps #information .function_area .maps_name {
   color: #65A8A6;
+}
+
+#app #maps #information .function_area .maps_name h3 {
+  padding: 0 5px;
 }
 
 #app #maps #information .function_area .store {
@@ -285,5 +272,14 @@ button:hover {
   -webkit-transform: translateX(-50%) translateY(-78%);
           transform: translateX(-50%) translateY(-78%);
   width: 100%;
+}
+
+#pic1 {
+  stroke: black;
+  stroke-width: 3px;
+}
+
+#circle {
+  fill: transparent;
 }
 
