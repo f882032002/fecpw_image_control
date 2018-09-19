@@ -256,10 +256,7 @@ button {
     }
 }
 
-#pic1 {
-    stroke: black;
-    stroke-width: 3px;
-  }
-  #circle {
-    fill: transparent;
-  }
+#svg{
+    border: solid 2px black;
+    box-sizing: border-box;
+}

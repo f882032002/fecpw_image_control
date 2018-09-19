@@ -396,3 +396,21 @@ let response = [ // 設備們
       ]
     },
   ];
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+let icon = {
+  co: '/images/co.svg',
+  co2: '/images/co2.svg',
+  pir: '/images/pir.svg',
+  sos: '/images/sos.svg',
+  door: '/images/door.svg',
+  smoke: '/images/smoke.svg',
+  light: '/images/light.svg',
+  water: '/images/water.svg',
+  socket: '/images/Socket.svg',
+  gateway: '/images/gateway.svg',
+  q_module: '/images/q-module.svg',
+  door_lock: '/images/door-lock.svg',
+  thermometer: '/images/Thermometer.svg',
+}

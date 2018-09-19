@@ -274,12 +274,9 @@ button:hover {
   width: 100%;
 }
 
-#pic1 {
-  stroke: black;
-  stroke-width: 3px;
-}
-
-#circle {
-  fill: transparent;
+#svg {
+  border: solid 2px black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 

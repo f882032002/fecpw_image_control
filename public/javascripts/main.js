@@ -1,5 +1,3 @@
-
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ MinWidth ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let window_h = $(window).height();
@@ -82,22 +80,13 @@ let btn = {
   }
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-let icon = {
-  co: '/images/co.svg',
-  co2: '/images/co2.svg',
-  pir: '/images/pir.svg',
-  sos: '/images/sos.svg',
-  door: '/images/door.svg',
-  smoke: '/images/smoke.svg',
-  light: '/images/light.svg',
-  water: '/images/water.svg',
-  socket: '/images/Socket.svg',
-  gateway: '/images/gateway.svg',
-  q_module: '/images/q-module.svg',
-  door_lock: '/images/door-lock.svg',
-  thermometer: '/images/Thermometer.svg',
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ SVG init ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+function svg_Init() {
+  let svg = $('#svg')
+  svg.html(svg.html())
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -128,62 +117,53 @@ function myArea(c) {
 
 function myMap(d) {
   return `
-  <svg id="svg" width="1900" height="1000" viewBox="0 0 1900 1000">
-    <image x="0" y="0" width="1900" height="1000" href="${d}"></image>
-    <circle cx="950" cy="500" r="5" fill="red">
-      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
-    </circle>
-    <circle cx="1220" cy="731" r="5" fill="red">
-      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
-    </circle>
-    <circle cx="723" cy="151" r="5" fill="red">
-      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
-    </circle>
-    <circle cx="1159" cy="137" r="5" fill="red">
-      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
-    </circle>
-    <circle cx="632" cy="678" r="5" fill="red">
-      <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
-    </circle> 
-    <line x1="780" y1="290" x2="800" y2="320" stroke="red" stroke-width="3px"></line>
-    <line x1="800" y1="290" x2="780" y2="320" stroke="red" stroke-width="3px"></line>
-    <circle fill="red" cx="1024" cy="198" r="5">
-        <animate attributeName="r" dur="2s" values="5;10;5" repeatCount="indefinite"></animate>
-    </circle>
-  </svg>
-    
+    <svg width="100%" height="100%" id="svg" viewBox="0 0 1900 1000" >
+      <image x="0" y="0" width="100%" height="100%" href="${d}"></image>
+      <rect 
+      x="500" y="500" rx="20" ry="20"
+      fill="rgba(101, 168, 166, 0.5)" 
+      width="250" 
+      height="250" 
+      />
+      <image x="950" y="500" width="30" height="30" href="${icon.co}"></image>
+      <image x="1220" y="731" width="30" height="30" href="${icon.light}"></image>
+      <image x="723" y="151" width="30" height="30" href="${icon.door_lock}"></image>
+      <image x="1159" y="137" width="30" height="30" href="${icon.door}"></image>
+      <image x="632" y="678" width="30" height="30" href="${icon.water}"></image>
+      <image x="1224" y="198" width="30" height="30" href="${icon.thermometer}"></image>
+    </svg>
   `
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas On Map Html Template And Move It ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas On Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-
-$(()=>{
-
-  let mx, my;
+$(() => {
+  //  點擊坐標 ！！！
+  let dx, dy, ux, uy, mx, my
   let svg = $('#svg')
 
-  svg.on('click', function (e) {
-    mx = e.offsetX;
-    my = e.offsetY;
-    $(_wave(mx, my)).appendTo(svg);
-    svg.html(svg.html())
+  svg.on('mousedown',  function(e){
+    dx = e.offsetX;
+    dy = e.offsetY;
+    console.log('dtop: ' + dy, 'dleft: ' + dx)
+    svg.on('mousemove', function(e){
+      mx = e.offsetX;
+      my = e.offsetY;
+      console.log('mtop: ' + my, 'mleft: ' + mx)
+    })
   });
 
-  function _wave(i, j) {
-    return `
-    <rect 
-    x="${i - 25}" y="${j - 25}" 
-    fill="rgba(101, 168, 166, 0.5)" 
-    width="50" 
-    height="50" 
-    />
-    `
-  }
+  
 
+  svg.on('mouseup', function(e){
+    $(this).off('mousemove')
+    ux = e.offsetX;
+    uy = e.offsetY;
+    console.log('utop: ' + uy, 'uleft: ' + ux)
+    console.log(dx, dy, ux, uy, mx, my)
+  })
+  
 })
-
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -300,47 +280,16 @@ function showList() {
 };
 showList();
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Area Group) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-$(() => {
-  $('.area').draggable({
-    cursor: 'pointer',
-    helper: "clone",
-    revert: "invalid",
-  });
-});
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Droppable (Map) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-
-
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Devices) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-$(() => {
-  $('.item').draggable({
-    cursor: 'pointer',
-    helper: "clone",
-    revert: "invalid"
-  });
-});
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 縮放按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
   let _width = 100; // 初始寬度
   let _height = 100; // 初始高度
-  let _top = 50;
-  let _left = 50;
 
   function init() {
-    $('.img_div').css({
+    $('#svg').css({
       'width': _width + '%',
       'height': _height + '%'
-    })
-    $('.point').css({
-      'top': _top + '%',
-      'left': _left + '%'
     })
   };
   init();
