@@ -117,10 +117,10 @@ function myArea(c) {
 
 function myMap(d) {
   return `
-    <svg width="100%" height="100%" id="svg" viewBox="0 0 1900 1000" >
-      <image x="0" y="0" width="100%" height="100%" href="${d}"></image>
+    <svg width="1800" height="1000" id="svg" viewBox="0 0 1800 1000" >
+      <image x="0" y="0" width="1800" height="1000" href="${d}"></image>
       <rect 
-      x="500" y="500" rx="20" ry="20"
+      x="50" y="50" rx="20" ry="20"
       fill="rgba(101, 168, 166, 0.5)" 
       width="250" 
       height="250" 
@@ -138,31 +138,54 @@ function myMap(d) {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas On Map Html Template And Move It ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
-  //  點擊坐標 ！！！
-  let dx, dy, ux, uy, mx, my
-  let svg = $('#svg')
 
-  svg.on('mousedown',  function(e){
+  //  點擊坐標 ！！！
+  let dx, dy, ux, uy, mx, my, rectX, rectY
+  let svg = $('#svg')
+  let rect = svg.find('rect')
+  let isMouseDown = false
+
+  rect.on('mousedown', function (e) {
+
+    isMouseDown = true
     dx = e.offsetX;
     dy = e.offsetY;
-    console.log('dtop: ' + dy, 'dleft: ' + dx)
-    svg.on('mousemove', function(e){
-      mx = e.offsetX;
-      my = e.offsetY;
-      console.log('mtop: ' + my, 'mleft: ' + mx)
-    })
+    rectX = $(this).attr('x')
+    rectY = $(this).attr('y')
+    console.log($(this), rectX, rectY, dx, dy, isMouseDown) // 一開始滑鼠點下去的坐標
+    moveNow()
   });
 
-  
+  function moveNow() {
+    if (isMouseDown === true) {
 
-  svg.on('mouseup', function(e){
-    $(this).off('mousemove')
+      rect.on('mousemove', function (e) {
+
+        mx = e.offsetX;
+        my = e.offsetY;
+        $(this).attr({
+          'x': mx,
+          'y': my - 130
+        })
+        console.log(mx, my)
+      })
+    } else {
+      rect.off('mousemove')
+    }
+  }
+
+  rect.on('mouseup', function (e) {
+
+    isMouseDown = false
     ux = e.offsetX;
     uy = e.offsetY;
-    console.log('utop: ' + uy, 'uleft: ' + ux)
-    console.log(dx, dy, ux, uy, mx, my)
+    $(this).attr({
+      'x': ux,
+      'y': uy - 130
+    })
+    moveNow()
+    console.log(uy, ux)
   })
-  
 })
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
