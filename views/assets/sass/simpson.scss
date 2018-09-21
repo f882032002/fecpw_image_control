@@ -1,0 +1,98 @@
+
+// Split into two pieces because it's too big for a single matrix.
+$homerTop: (
+    (x x x x b b b b x x x x x x x x x x x x x x x x)
+    (x x x b b b x x b x x x x x x x x x x x x x x x) 
+    (x x b b x x b b b b b b x x x x x x x x x x x x)
+    (x b x b b b y y y y y y b b x x x x x x x x x x) 
+    (x b x b y y y y y y y y y y b x x x x x x x x x)
+    (x x b y y y y y y y y y y y y b x x x x x x x x) 
+    (x b y y y y y y y y y y y y y b x x x x x x x x)
+    (x b y y y y y y y y y y y y y y b x x x x x x x)
+    (x b y y y y y y y y y y y y y y b b b x x x x x)
+    (x b y y y y y y y y y b b b b b w w w b x x x x) 
+    (x b y y y y y y y y b w w w w b w w w w b x x x)
+    (x b y y y y y y y b w w w w w w b w b w b x x x) 
+    (x b y y y y y y y b w w w b w w b w w w b x x x)
+    (x x b y y b y y y b w w w w w w b b b b x x x x) 
+    (x x b y y b b y y y b w w w w b y y y y b x x x)
+    (x x b b b y y b y y y b b b b y y y y y b x x x)
+    (x x b x b b y y y y y y y y y y b b b b x x x x)
+    (x x x x b b b y y y y y y b b b v v v v b x x x) 
+    (x x x x b y y y y y y y b v v v v v v v v b x x)
+    (x x x x b y y b y y y b v v v v v v v v v v b x) 
+    (x x x x x b b y y y b v v v v v v v v v v v b x)
+);
+$homerBottom: (
+   (x x x x x x b y y y b v b v v v v v v v v b b x)
+   (x x x x x x b y y y b v v b b b b b b b b x x x) 
+   (x x x x x x b y y y b v v v v v v v v b x x x x)
+   (x x x x x x b y y y y b v v v v v v b x x x x x) 
+   (x x x x x x b y y y y y b v v v v b x x x x x x)
+   (x x x x x x b y y y y y y b b b b x x x x x x x) 
+   (x x x x x b b y y y y y y y y y b b x x x x x x)
+   (x x x x b w w b b y y y y y y y b w b x x x x x) 
+   (x x x x b w w w w b b y y y y y b w w b b x x x)
+   (x x x b b w w w w w w b b y y y b w w w b b x x) 
+   (x x b w w b w w w w w w b b y y b w w w w b x x) 
+   (x x b b b b b b b b b b b b b b b b b b b b x x)
+);
+
+$colors: (
+  "b": #000,
+  "y": #edc204,
+  "v": #ad8452,
+  "w": #fff,
+  "x": transparent
+);
+
+@function pixelate ($matrix, $size: 5px) {
+  $pixels: ();
+
+  @for $colIdx from 1 through length( $matrix ) {
+    $row: nth($matrix, $colIdx);
+
+    @for $rowIdx from 1 through length( $row ) {
+      $item  : nth($row, $rowIdx);
+      $pixels: $pixels,
+         ($rowIdx * $size) ($colIdx * $size) map-get($colors, $item);
+    }
+  }
+  @return $pixels;
+}
+
+@mixin makePixelArt ($matrix, $size: 5px) {
+  $rowLen: length(nth($matrix, 1));
+  $colLen: length($matrix);
+
+  position: relative;
+  width : $size * $rowLen;
+  height: $size * $colLen;
+
+  &:after {
+    content   : "";
+    position  : absolute;
+    top       : -$size;
+    left      : -$size;
+    width     : $size;
+    height    : $size;
+    box-shadow: pixelate($matrix, $size);
+  }
+}
+
+.homer {
+  width    : 240px;
+  height   : 350px;
+  position : absolute;
+  top      : 40%;
+  left     : 50%;
+  zoom     : 2.6;
+  opacity  : 0;
+  transform: translateX(-50%) translateY(-40%);
+  .top {
+    @include makePixelArt( $homerTop   , 10px );
+  }
+  .bottom {
+    @include makePixelArt( $homerBottom, 10px );
+  }
+}
