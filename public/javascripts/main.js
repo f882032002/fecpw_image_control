@@ -21,9 +21,6 @@ let Toilet_color = '#93E6CE'
 let LivingRoom_color = '#93CEE6'
 let BedRoom_color = '#CEBEEB'
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ API & Maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-let apiUrl = '';
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -67,6 +64,7 @@ let data = {
   ]
 }
 
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let btn = {
@@ -108,8 +106,8 @@ function myArea(c) {
 
 function myMap(d) {
   return `
-    <svg width="1800" height="1000" id="svg" viewBox="0 0 1800 1000" xmlns="http://www.w3.org/1999/xhtml" >
-      <image x="0" y="0" width="1800" height="1000" href="${d}"></image>
+    <svg width="1900" height="1000" id="svg" viewBox="0 0 1900 1000" xmlns="http://www.w3.org/1999/xhtml" >
+      <image x="0" y="0" width="1900" height="1000" href="${d}"></image>
       <rect 
       x="50" y="50" rx="20" ry="20"
       fill="rgba(101, 168, 166, 0.5)" 
@@ -152,7 +150,6 @@ function moveDev() {
           'x': mx - (dev_onMap_w / 2),
           'y': my - (dev_onMap_h / 2)
         })
-        console.log(dev_onMap_w, dev_onMap_h)
       })
     } else {
       dev_onMap.off('mousemove')
@@ -166,8 +163,8 @@ function moveDev() {
     dy = e.offsetY;
     dev_onMapX = $(this).attr('x')
     dev_onMapY = $(this).attr('y')
-    console.log($(this), dev_onMapX, dev_onMapY, dx, dy, isMouseDown) // 一開始滑鼠點下去的坐標
     moveNow()
+    
   });
 
   dev_onMap.on('mouseup', function (e) {
@@ -180,7 +177,6 @@ function moveDev() {
       'y': uy - (dev_onMap_h / 2)
     })
     moveNow()
-    console.log(uy, ux)
   })
 }
 
@@ -204,7 +200,7 @@ function moveArea() {
     dy = e.offsetY;
     rectX = $(this).attr('x')
     rectY = $(this).attr('y')
-    console.log($(this), rectX, rectY, dx, dy, isMouseDown) // 一開始滑鼠點下去的坐標
+    //console.log($(this), rectX, rectY, dx, dy, isMouseDown) // 一開始滑鼠點下去的坐標
     moveNow()
   });
 
@@ -219,7 +215,6 @@ function moveArea() {
           'x': mx - (rect_w / 2),
           'y': my - (rect_h / 2)
         })
-        console.log(rect_w, rect_h)
       })
     } else {
       rect.off('mousemove')
@@ -236,7 +231,6 @@ function moveArea() {
       'y': uy - (rect_h / 2)
     })
     moveNow()
-    console.log(uy, ux)
   })
 }
 
@@ -355,13 +349,15 @@ function showList() {
   })
 
 };
-showList();
+showList(); // 將定義好的函數全部執行一次
 moveArea();
 moveDev();
+
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 縮放按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
-  let _width = 1800; // 初始寬度
+  let _width = 1900; // 初始寬度
   let _height = 1000; // 初始高度
   let opa = 0;
 
@@ -376,26 +372,26 @@ $(() => {
 
 
   $('#zoom').on('click', function () { // 放大圖片
-    (_width == 5400, _height == 3000) ? (
+    (_width == 5700, _height == 3000) ? (
       console.log('Has been max width !!')
     ) : (
-      (_width += 180),
+      (_width += 190),
       (_height += 100),
       (opa += 0.033),
       init()
     );
-    console.log($('#svg').width(), $('#svg').height())
   });
 
   $('#zoom_Out').on('click', function () { // 縮小圖片
-    (_width == 1800, _height == 1000) ? (
+    (_width == 1900, _height == 1000) ? (
       console.log('Has been min width !!')
     ) : (
-      (_width -= 180),
+      (_width -= 190),
       (_height -= 100),
       (opa -= 0.033),
       init()
     );
-    console.log($('#svg').width(), $('#svg').height())
   });
 })
+
+

@@ -21,29 +21,43 @@ $(() => {
 
 })
 
-// /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ SVG init ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Draggable Start (Devices) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-// function svg_Init() {
-//   let svg = $('#svg')
-//   svg.html(svg.html())
-// }
+function dra_start (x){
+  $(x.helper[0].children).css('color', 'transparent'),
+    $(x.helper[0]).css({
+      'height': '30px',
+      'width': '30px'
+    })
+  $('#map_img').css('background-color', 'rgba(255,192,203,0.7)')
+}
 
-// /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Image On Map Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-// function add_dev_to_map(a, b, c) {
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 轉換成 SVG X,Y ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-//     let x =
-//       `<image class="device_img" x="${a}" y="${b}" width="30" height="30" href="${c}"></image>`
-//     return x
-// }
+function getPosition (a){
+
+  const clientPoint = svg.createSVGPoint()
+  const CTM = svg.getScreenCTM()
+
+  let z =  
+  
+  clientPoint.x = a.clientX
+  clientPoint.y = a.clientY
+  SVGPoint = clientPoint.matrixTransform(CTM.inverse())
+
+  console.log( 
+    Math.round(SVGPoint.x - 15),
+    Math.round(SVGPoint.y - 15)
+  )
+  return z
+}
+
 
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ jQuery ui Draggable (Devices) ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
-
-  let _top = $('.mapsTitle').outerHeight()
-  let _left = $('#areaGroup').outerWidth()
 
   $('.item').draggable({
     cursor: 'pointer',
@@ -53,29 +67,25 @@ $(() => {
       top: 22,
       left: 21
     },
-    start: function (event, ui) {
-      $(ui.helper[0].children).css('color', 'transparent'),
-        $(ui.helper[0]).css({
-          'height': '30px',
-          'width': '30px'
-        })
-      $('#map_img').css('background-color', 'rgba(255,192,203,0.7)')
-    },
-    drag: function (event, ui) {
 
-      console.log(
-        Math.round(ui.offset.top - _top),
-        Math.round(ui.offset.left - _left)
-      )
+    start: function (event, ui) {  // 拖動開始時
+      dra_start (ui)
     },
-    stop: function (event, ui) {
 
+    drag: function (event, ui) {   // 拖動進行中
+      getPosition (event)
+    },
+
+    stop: function (event, ui) {   // 拖動停止後
+
+      getPosition (event)
       let name = ui.helper[0].attributes.name.value
-      let _x = Math.round(ui.offset.left - _left)
-      let _y= Math.round(ui.offset.top - _top)
-      
+      let _x = Math.round(SVGPoint.x - 15)
+      let _y = Math.round(SVGPoint.y - 15)
       let _img; // 放入 image
- 
+
+      // 用 name 判斷並抓出圖片
+
       switch (name) {
         case 'idc-gateway':
           _img = icon.gateway;
@@ -132,6 +142,7 @@ $(() => {
           _img = icon.thermometer;
           break;
       };
+
       var _image = makeSVG('image',{
         class: 'device_icon',
         x : _x, 
@@ -142,7 +153,7 @@ $(() => {
       })
       $(_image).appendTo('#svg');
       moveDev();
-      $('#map_img').css('background-color', 'rgba(255,192,203,0.4)');
+      $('#map_img').css('background-color', 'rgba(255,192,203,0.3)');
     },
   });
 });

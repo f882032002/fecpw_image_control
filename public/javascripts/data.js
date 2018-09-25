@@ -414,3 +414,42 @@ let icon = {
   door_lock: '/images/door-lock.svg',
   thermometer: '/images/Thermometer.svg',
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// data = {
+//   maps:[
+//     { name:'map1',
+//       imageURL:'/awefwe/awegaw/egr.jpg',
+//       areas:[
+//         { name:'area1', x:0, y:0, color:'#12345678', point:'1234, 234, 2345, 234',
+//           devices:[
+//             {name:'devices1', x:0, y:0},
+//             {name:'devices2', x:0, y:0},
+//             {name:'devices3', x:0, y:0},
+//             {name:'devices4', x:0, y:0}
+//           ]    
+//         },
+//         { name:'area2', x:0, y:0, color:'#12345678', point:'1234, 234, 2345, 234',
+//           devices:[
+//             {name:'devices5', x:0, y:0},
+//             {name:'devices6', x:0, y:0},
+//             {name:'devices7', x:0, y:0},
+//             {name:'devices8', x:0, y:0}
+//           ]    
+//         },
+//       ]
+//     }
+//   ]
+// };
