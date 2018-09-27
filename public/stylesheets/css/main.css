@@ -82,23 +82,6 @@ button:hover {
   margin: 0;
 }
 
-.del_btn,
-.new_btn {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  font-weight: 700;
-  font-size: 18px;
-  cursor: pointer;
-  color: #65A8A6;
-  background-color: transparent;
-}
-
-.new_btn {
-  top: 0;
-  left: 0;
-}
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 ::-webkit-scrollbar {
@@ -156,7 +139,6 @@ button:hover {
 }
 
 #app #areaGroup .groups {
-  text-align: center;
   height: 91%;
   overflow-y: auto;
   padding: 0;
@@ -168,10 +150,29 @@ button:hover {
   z-index: 9;
   color: #65A8A6;
   border: solid 2px #65A8A6;
-  width: 150px;
-  height: 200px;
+  width: 100%;
+  padding: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
+}
+
+#app #areaGroup .groups .area .del_btn,
+#app #areaGroup .groups .area .new_btn {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  color: #65A8A6;
+  background-color: transparent;
+}
+
+#app #areaGroup .groups .area .new_btn {
+  top: 50%;
+  right: 20px;
 }
 
 #app #maps {
@@ -185,7 +186,7 @@ button:hover {
   background-color: rgba(255, 192, 203, 0.4);
   position: relative;
   width: 100%;
-  height: 80%;
+  height: 79%;
   overflow: auto;
 }
 
@@ -280,7 +281,6 @@ button:hover {
 
 #app #device .items {
   padding: 0;
-  text-align: center;
   overflow-y: auto;
   height: 92.5%;
 }
@@ -292,32 +292,27 @@ button:hover {
   color: #65A8A6;
   border: solid 2px #65A8A6;
   display: inline-block;
-  width: 80px;
-  height: 120px;
+  width: 100%;
   border-radius: 8px;
-  padding: 10px;
+  padding: 5px;
   margin-bottom: 5px;
   -webkit-box-shadow: 6px 3px 5px -2px #65A8A6;
           box-shadow: 6px 3px 5px -2px #65A8A6;
 }
 
+#app #device .items .item img,
+#app #device .items .item p {
+  display: inline-block;
+}
+
 #app #device .items .item img {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-30%);
-          transform: translateX(-50%) translateY(-30%);
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
 }
 
 #app #device .items .item p {
-  position: absolute;
-  top: 78%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-78%);
-          transform: translateX(-50%) translateY(-78%);
-  width: 100%;
+  width: 80%;
+  text-align: center;
 }
 
 #svg {

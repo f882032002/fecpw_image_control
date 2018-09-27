@@ -7,6 +7,8 @@
   </title>
   <link rel="stylesheet" href="/stylesheets/css/main.css" />
   <link rel="stylesheet" href="/stylesheets/css/css-helper/jquery-ui.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -18,7 +20,7 @@
     <div id="areaGroup">
       <div class="title areaTitle">
         <h1>
-          <%= title_area %>
+          <%= title_area %>     
         </h1>
       </div>
 
@@ -82,13 +84,16 @@
             <button id="zoom_Out">
               -
             </button>
-            <button id="addarea">
-              addArea
-            </button>
           </div>
           <button class="store">
             store
           </button>
+          <label class="btn btn-info">
+            <form action="" enctype="multipart/form-data">
+              <input id="upload_img" style="display:none;" type="file">
+            </form>
+            <i class="fa fa-photo"></i> 上傳圖片
+          </label>
         </div>
 
       </div>
@@ -113,6 +118,7 @@
   <script src="/javascripts/main.js"></script>
   <script src="/javascripts/js-helper/draggable.js"></script>
   <script src="/javascripts/js-helper/jquery-ui.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script src="http://localhost:35729/livereload.js"></script>
 </body>
 
