@@ -1,25 +1,28 @@
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ MinWidth ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-let window_h = $(window).height(); // 螢幕高度
+let window_h           = $(window).height();  // 螢幕高度
+let isMouseDown_device = false                // 預設為 false
+let isMouseDown_area   = false                // 預設為 false
 
-function width_init() { // 讓整份文件與螢幕等高
+function width_init() {                       // 讓整份文件與螢幕等高
   $('#app').css({
     'height': window_h
   })
 }
 
-$(document).ready(() => { // 一開始時就讓整份文件與螢幕等高
+$(document).ready(() => {                     // 一開始時就讓整份文件與螢幕等高
   width_init()
-  $(window).resize(() => { // 調整視窗大小時讓文件與螢幕一起調整高度
+  $(window).resize(() => {                    // 調整視窗大小時與螢幕一起調整高度
     width_init()
   })
 });
 
 
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ SVG add ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function makeSVG(tag, attrs) { // 讓 HTML 讀懂 SVG 
+function makeSVG(tag, attrs) {       // 讓 HTML 讀懂 SVG 
   var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
     for (var k in attrs)
       el.setAttribute(k, attrs[k]);
@@ -28,7 +31,7 @@ function makeSVG(tag, attrs) { // 讓 HTML 讀懂 SVG
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-let btn = { // 定義好按鈕中的名字與 HTML
+let btn = {                              // 定義好按鈕中的名字與 HTML
   del: {
     name: 'del_btn',
     icon: 'x'
@@ -37,57 +40,57 @@ let btn = { // 定義好按鈕中的名字與 HTML
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myDevice(a, b, c) { // 設備清單的模板
+function myDevice(a, b, c) {                            // 設備清單的模板
   return `
-      <li class="item" name="${c}">
-        <img src="${b}" alt="">
-        <p>
-          ${a}
-        </p>
-      </li>  
-    `
+    <li class = "item" name = "${c}">
+      <img src = "${b}" alt = "">
+      <p>
+        ${a}
+      </p>
+    </li>  
+  `
 }
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device Image On Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device On Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myDeviceOnMap(a, b, c) { // 從後端 GET 到的設備資料顯示於畫面上的模板
+function myDeviceOnMap(a, b, c) {    // 從後端 GET 到的設備資料顯示於畫面上的模板
   return `
-  <image class ="device_icon" 
-         x     ="${a}" 
-         y     ="${b}" 
-         width ="30" 
-         height="30" 
-         href  ="${c}">
-  </image>
+    <image class  = "device_icon" 
+          x      = "${a}" 
+          y      = "${b}" 
+          width  = "30" 
+          height = "30" 
+          href   = "${c}">
+    </image>
   `
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Area li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myArea(c) { // 區域清單模板
+function myArea(c) {                                    // 區域清單模板
   return `
-      <li class="area">${c}
-        <button class="${btn.del.name}">
-          ${btn.del.icon}
-        </button>
-      </li>  
-    `
+    <li class = "area">${c}
+      <button class = "${btn.del.name}">
+        ${btn.del.icon}
+      </button>
+    </li>  
+  `
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myMap(d) { // 地圖模板
+function myMap(d) {                                    // 地圖模板
   return `
-    <svg width  ="1900" 
-         height ="1000" 
-         id     ="svg" 
-         viewBox="0 0 1900 1000" 
-         xmlns  ="http://www.w3.org/1999/xhtml" >
+    <svg width   = "1900" 
+         height  = "1000" 
+         id      = "svg" 
+         viewBox = "0 0 1900 1000" 
+         xmlns   = "http://www.w3.org/1999/xhtml" >
 
-      <image x     ="0" 
-             y     ="0" 
-             width ="1900" 
-             height="1000" 
-             href  ="${d}">
+      <image x      = "0" 
+             y      = "0" 
+             width  = "1900" 
+             height = "1000" 
+             href   = "${d}">
       </image>
 
     </svg>
@@ -96,7 +99,7 @@ function myMap(d) { // 地圖模板
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Current Transform Matrix ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function CTM_function (a){ // CTM 轉換矩陣
+function CTM_function (a){                                // CTM 轉換矩陣
 
   const clientPoint = svg.createSVGPoint()
   const CTM         = svg.getScreenCTM()
@@ -111,12 +114,12 @@ function CTM_function (a){ // CTM 轉換矩陣
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Function ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-let isMouseDown = false // 預設為 false
-function moveNow(x) {
+
+function moveNow(x,y) {
   let _height = x.attr('height')
-  if (isMouseDown === true) {
+  if (y === true) {
     x.on('mousemove', function (e) {
-      CTM_function (e) // 將座標轉換成 SVG 座標
+      CTM_function (e)                         // 將座標轉換成 SVG 座標
       $(this).attr({
         'x': Math.round(SVGPoint.x - (_height / 2)),
         'y': Math.round(SVGPoint.y - (_height / 2))
@@ -129,25 +132,31 @@ function moveNow(x) {
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device On Map Move It ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function moveDev() { // 讓地圖上的 Device 可被移動
-  //  點擊坐標 ！！！
-  let svg         = $('#svg')
-  let dev_onMap   = svg.find('.device_icon')
+function moveDev() {                       // 讓地圖上的 Device 可被移動
+  let svg       = $('#svg')
+  let dev_onMap = svg.find('.device_icon')
 
   dev_onMap.on('mousedown', function (e) {
-    isMouseDown = true
+
+    isMouseDown_device = true
+    isMouseDown_area   = false
+
     CTM_function (e)
-    moveNow(dev_onMap)
+    moveNow(dev_onMap,isMouseDown_device)
   });
 
   dev_onMap.on('mouseup', function (e) {
-    isMouseDown = false
+    let dev_h = $(this).attr('height')
+
+    isMouseDown_device = false
+    isMouseDown_area   = false
+
     CTM_function (e)
     $(this).attr({
-      'x': Math.round(SVGPoint.x - 15),
-      'y': Math.round(SVGPoint.y - 15)
+      'x': Math.round(SVGPoint.x - (dev_h/2)),
+      'y': Math.round(SVGPoint.y - (dev_h/2))
     })
-    moveNow(dev_onMap)
+    moveNow(dev_onMap,isMouseDown_device)
   })
 }
 
@@ -156,29 +165,32 @@ function moveDev() { // 讓地圖上的 Device 可被移動
 
 function createAreas(){
   let svg = $('#svg')
+  
   svg.on('mousedown',function(e){
-
     CTM_function (e)
     let button_value = $('#addArea').attr('value')
-
-    if (button_value === "add_on"){ // 判斷按鈕的值是否為可以在地圖上新增區域
-
+    if (button_value === "add_on"){        // 判斷按鈕的值是否為可以在地圖上新增區域
       let _areasMap = makeSVG('rect',{
         class : 'area_on_map',
         x     : Math.round(SVGPoint.x - 40), 
         y     : Math.round(SVGPoint.y - 40),
         width : 80, 
         height: 80,
+        name  : 'rect_name',
         fill  : 'rgba(101, 168, 166, 0.5)', 
         href  : _icon
       })
       $(_areasMap).appendTo('#svg');
       moveArea()
-
+      let area_name = $(_areasMap).attr('name')
+      let areaHtml  = {
+        view: myArea(area_name),
+        self: _areasMap
+      }
+      $(del(areaHtml)).appendTo('.groups')
     }else{
       console.log('You can not add areas')
-    }
-    
+    } 
   })
   
 }
@@ -186,30 +198,39 @@ function createAreas(){
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Areas On Map ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 function moveArea() {
-  //  點擊坐標 ！！！
   let svg         = $('#svg')
   let rect        = svg.find('rect')
 
   rect.on('mousedown', function (e) {
-    isMouseDown = true
+
+    isMouseDown_device = false
+    isMouseDown_area   = true
+
     CTM_function (e)
-    moveNow(rect)
+    moveNow(rect,isMouseDown_area)
   });
 
   rect.on('mouseup', function (e) {
-    isMouseDown = false
+
+    isMouseDown_device = false
+    isMouseDown_area   = false
+
     CTM_function (e)
     $(this).attr({
       'x': Math.round(SVGPoint.x - 40),
       'y': Math.round(SVGPoint.y - 40)
     })
-    moveNow(rect)
+    moveNow(rect,isMouseDown_area)
   })
+
+  // rect.on('mouseenter', function (e) {
+  //   console.log(e)
+  // });
 }
 
 
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Even ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Event ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
 function del(x) {
@@ -217,7 +238,8 @@ function del(x) {
     $(x.view).find('.del_btn')
       .on('click', function () {
         $(this).parent().remove()
-      }).end()
+        $(x.self).remove()
+      }).end()  
   return y
 }
 
@@ -225,11 +247,11 @@ function del(x) {
 
 function showList() {
 
-  data.maps.forEach((map, mapID) => { // Map 迴圈
+  data.maps.forEach((map, mapID) => {              // Map 迴圈
     $('.maps_name span').append(map.name)
     $(myMap(map.map_url)).appendTo('.img_div')
 
-    map.areas.forEach((area, areaID) => { // Area in Maps
+    map.areas.forEach((area, areaID) => {          // Area in Maps
       let areaHtml = {
         view: myArea(area.name),
         key : area._id,
@@ -263,15 +285,16 @@ function showList() {
   })
 };
 
-// 將定義好的函數全部執行一次
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 將定義好的函數全部執行一次 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 showList   (); 
 createAreas();
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 縮放按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
-  let _width  = 1900; // 初始寬度
-  let _height = 1000; // 初始高度
+  let _width  = 1900;                        // 初始寬度
+  let _height = 1000;                        // 初始高度
   let opa     = 0;
 
   function init() {
@@ -286,7 +309,7 @@ $(() => {
   init();
 
 
-  $('#zoom').on('click', function () { // 放大圖片
+  $('#zoom').on('click', function () {       // 放大圖片
     (_width == 5700, _height == 3000) ? (
       console.log('Has been max width !!')
     ) : (
@@ -297,7 +320,7 @@ $(() => {
     );
   });
 
-  $('#zoom_Out').on('click', function () { // 縮小圖片
+  $('#zoom_Out').on('click', function () {  // 縮小圖片
     (_width == 1900, _height == 1000) ? (
       console.log('Has been min width !!')
     ) : (
@@ -308,19 +331,19 @@ $(() => {
     );
   });
 
-  $('#store').on('click',function(){
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 儲存按鈕與新增按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+  $('#store').on('click',function(){                 // 儲存按鈕
     $('#addArea').attr({
       'value' : 'add_off'
     })
-    console.log($('#addArea').attr('value'))
-  })
+  });
 
-  $('#addArea').on('click',function(){
+  $('#addArea').on('click',function(){               // 新增區域按鈕
     $('#addArea').attr({
       'value' : 'add_on'
     })
-    console.log($('#addArea').attr('value'))
-  })
+  });
 
 })
 

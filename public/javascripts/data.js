@@ -15,9 +15,11 @@ let data = {
       map_url : '/images_map/1F.png',
       areas   : [
         {
-          name   : 'area1',
+          name   : 'BedRoom',
           x      : 0,
           y      : 0,
+          width  : 0,
+          height : 0,
           color  : BedRoom_color,
           devices: [
             {
@@ -470,6 +472,28 @@ let data = {
                 }
               ]
             },
+          ]
+        },
+        {
+          name   : 'LivingRoom',
+          x      : 0,
+          y      : 0,
+          width  : 0,
+          height : 0,
+          color  : BedRoom_color,
+          devices: [
+
+          ]
+        },
+        {
+          name   : 'Toilet',
+          x      : 0,
+          y      : 0,
+          width  : 0,
+          height : 0,
+          color  : BedRoom_color,
+          devices: [
+
           ]
         },
       ]

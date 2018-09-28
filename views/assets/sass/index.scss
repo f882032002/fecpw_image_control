@@ -24,9 +24,9 @@ button {
 
 .title {
     text-align      : center;
-    background-color: $color_main;
     color           : $color_function;
     padding         : 15px 0;
+    background-color: $color_main;
 
     h1 {
         margin: 0;
@@ -58,8 +58,8 @@ button {
 
 /* 邊角 */
 ::-webkit-scrollbar-thumb {
-    background-color: $color_function;
     border          : solid 3px $color_main;
+    background-color: $color_function;
 }
 
 
@@ -67,18 +67,18 @@ button {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
-    background-color: $color_function;
     display         : flex;
     justify-content : space-between;
     align-items     : flex-start;
+    background-color: $color_function;
 
     /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
     #areaGroup {
         width           : 10%;
-        background-color: $color_main;
         height          : 100%;
         padding         : 0 10px;
+        background-color: $color_main;
 
         .groups {
             height    : 91%;
@@ -87,7 +87,6 @@ button {
 
             .area {
                 position        : relative;
-                background-color: $color_function;
                 z-index         : 9;
                 color           : $color_main;
                 border          : solid 2px $color_main;
@@ -95,6 +94,7 @@ button {
                 padding         : 10px;
                 margin          : 0 auto;
                 margin-bottom   : 10px;
+                background-color: $color_function;
 
                 .del_btn,
                 .new_btn {
@@ -125,11 +125,11 @@ button {
         width   : 75%;
 
         #map_img {
-            background-color: $color_mask;
             position        : relative;
             width           : 100%;
             height          : 79.2%;
             overflow        : auto;
+            background-color: $color_mask;
 
             .img_div {
                 position: relative;
@@ -206,8 +206,8 @@ button {
 
     #device {
         width           : 15%;
-        background-color: $color_main;
         height          : 100%;
+        background-color: $color_main;
 
         .items {
             padding   : 0;
@@ -217,15 +217,13 @@ button {
             .item {
                 position        : relative;
                 z-index         : 10;
-                background-color: $color_function;
                 color           : $color_main;
-                border          : solid 2px $color_main;
                 display         : inline-block;
                 width           : 100%;
                 border-radius   : 8px;
                 padding         : 5px;
-                margin-bottom   : 5px;
-                box-shadow      : 6px 3px 5px -2px $color_main;
+                margin          : 5px;
+                background-color: $color_function;
 
                 img,p {
                     display: inline-block;

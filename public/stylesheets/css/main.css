@@ -73,9 +73,9 @@ button:hover {
 
 .title {
   text-align: center;
-  background-color: #65A8A6;
   color: #F8ECC2;
   padding: 15px 0;
+  background-color: #65A8A6;
 }
 
 .title h1 {
@@ -109,14 +109,13 @@ button:hover {
 /* 邊角 */
 
 ::-webkit-scrollbar-thumb {
-  background-color: #F8ECC2;
   border: solid 3px #65A8A6;
+  background-color: #F8ECC2;
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 整份文件 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 #app {
-  background-color: #F8ECC2;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -126,6 +125,7 @@ button:hover {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  background-color: #F8ECC2;
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -133,9 +133,9 @@ button:hover {
 
 #app #areaGroup {
   width: 10%;
-  background-color: #65A8A6;
   height: 100%;
   padding: 0 10px;
+  background-color: #65A8A6;
 }
 
 #app #areaGroup .groups {
@@ -146,7 +146,6 @@ button:hover {
 
 #app #areaGroup .groups .area {
   position: relative;
-  background-color: #F8ECC2;
   z-index: 9;
   color: #65A8A6;
   border: solid 2px #65A8A6;
@@ -154,6 +153,7 @@ button:hover {
   padding: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
+  background-color: #F8ECC2;
 }
 
 #app #areaGroup .groups .area .del_btn,
@@ -183,11 +183,11 @@ button:hover {
 }
 
 #app #maps #map_img {
-  background-color: rgba(255, 192, 203, 0.4);
   position: relative;
   width: 100%;
   height: 79.2%;
   overflow: auto;
+  background-color: rgba(255, 192, 203, 0.4);
 }
 
 #app #maps #map_img .img_div {
@@ -259,8 +259,8 @@ button:hover {
 
 #app #device {
   width: 15%;
-  background-color: #65A8A6;
   height: 100%;
+  background-color: #65A8A6;
 }
 
 #app #device .items {
@@ -272,16 +272,13 @@ button:hover {
 #app #device .items .item {
   position: relative;
   z-index: 10;
-  background-color: #F8ECC2;
   color: #65A8A6;
-  border: solid 2px #65A8A6;
   display: inline-block;
   width: 100%;
   border-radius: 8px;
   padding: 5px;
-  margin-bottom: 5px;
-  -webkit-box-shadow: 6px 3px 5px -2px #65A8A6;
-          box-shadow: 6px 3px 5px -2px #65A8A6;
+  margin: 5px;
+  background-color: #F8ECC2;
 }
 
 #app #device .items .item img,

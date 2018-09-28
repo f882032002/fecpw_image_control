@@ -3,13 +3,12 @@
 
 function dra_start (x){
 
-  $(x.helper[0].children).css({
-    'color' : 'transparent'
-  }),
-
+  $(x.helper[0].children[1]).remove()
+  
   $(x.helper[0]).css({
-    'height': '45px',
-    'width' : '45px'
+    'background-color' : 'transparent',
+    'height'           : '45px',
+    'width'            : '45px'
   })
 
   $('#map_img').css({
@@ -41,7 +40,6 @@ $(() => {
     drag: function (event, ui) {   // 拖動進行中
 
       CTM_function (event)
-
     },
 
 
@@ -56,18 +54,16 @@ $(() => {
       image_switch(name)
       
       var _image = makeSVG('image',{
-
         class : 'device_icon',
         x     : _x, 
         y     : _y,
         width : 30, 
         height: 30, 
-        href  : _icon
-        
+        href  : _icon  
       })
-
+      
       $(_image).appendTo('#svg');
-      event.target.remove()
+      $(event.target).fadeOut()
       moveDev();
 
       $('#map_img').css({
@@ -76,4 +72,5 @@ $(() => {
 
     },
   });
+
 });
