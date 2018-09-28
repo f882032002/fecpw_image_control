@@ -102,12 +102,29 @@ function CTM_function (a){ // CTM 轉換矩陣
   const CTM         = svg.getScreenCTM()
   
   let z =  
-  
   clientPoint.x = a.clientX
   clientPoint.y = a.clientY
   SVGPoint      = clientPoint.matrixTransform(CTM.inverse())
 
   return z
+}
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Function ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+let isMouseDown = false // 預設為 false
+function moveNow(x) {
+  let _height = x.attr('height')
+  if (isMouseDown === true) {
+    x.on('mousemove', function (e) {
+      CTM_function (e) // 將座標轉換成 SVG 座標
+      $(this).attr({
+        'x': Math.round(SVGPoint.x - (_height / 2)),
+        'y': Math.round(SVGPoint.y - (_height / 2))
+      })
+    })
+  } else {
+    x.off('mousemove')
+  }
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device On Map Move It ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -116,101 +133,77 @@ function moveDev() { // 讓地圖上的 Device 可被移動
   //  點擊坐標 ！！！
   let svg         = $('#svg')
   let dev_onMap   = svg.find('.device_icon')
-  let isMouseDown = false
-
-  function createAreas(){
-    svg.on('mousedown',function(e){
-      CTM_function (e)
-      console.log(SVGPoint)
-    })
-  }createAreas()
-
-  function moveNow() {
-    if (isMouseDown === true) {
-
-      dev_onMap.on('mousemove', function (e) {
-
-        CTM_function (e) // 將座標轉換成 SVG 座標
-        
-        $(this).attr({
-          'x': Math.round(SVGPoint.x - 15),
-          'y': Math.round(SVGPoint.y - 15)
-        })
-      })
-
-    } else {
-      dev_onMap.off('mousemove')
-    }
-  }
 
   dev_onMap.on('mousedown', function (e) {
-
     isMouseDown = true
     CTM_function (e)
-    moveNow()
-    
+    moveNow(dev_onMap)
   });
 
   dev_onMap.on('mouseup', function (e) {
-
     isMouseDown = false
     CTM_function (e)
     $(this).attr({
       'x': Math.round(SVGPoint.x - 15),
       'y': Math.round(SVGPoint.y - 15)
     })
-
-    moveNow()
-
+    moveNow(dev_onMap)
   })
 }
 
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas On Map ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Add Areas On Map Html Template And Move It ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+function createAreas(){
+  let svg = $('#svg')
+  svg.on('mousedown',function(e){
+
+    CTM_function (e)
+    let button_value = $('#addArea').attr('value')
+
+    if (button_value === "add_on"){ // 判斷按鈕的值是否為可以在地圖上新增區域
+
+      let _areasMap = makeSVG('rect',{
+        class : 'area_on_map',
+        x     : Math.round(SVGPoint.x - 40), 
+        y     : Math.round(SVGPoint.y - 40),
+        width : 80, 
+        height: 80,
+        fill  : 'rgba(101, 168, 166, 0.5)', 
+        href  : _icon
+      })
+      $(_areasMap).appendTo('#svg');
+      moveArea()
+
+    }else{
+      console.log('You can not add areas')
+    }
+    
+  })
+  
+}
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Areas On Map ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 function moveArea() {
   //  點擊坐標 ！！！
   let svg         = $('#svg')
   let rect        = svg.find('rect')
-  let isMouseDown = false
 
   rect.on('mousedown', function (e) {
-
     isMouseDown = true
     CTM_function (e)
-    moveNow()
-
+    moveNow(rect)
   });
 
-  function moveNow() {
-    if (isMouseDown === true) {
-
-      rect.on('mousemove', function (e) {
-
-        CTM_function (e)
-        
-        $(this).attr({
-          'x': Math.round(SVGPoint.x - 125),
-          'y': Math.round(SVGPoint.y - 125)
-        })
-
-      })
-    } else {
-      rect.off('mousemove')
-    }
-  }
-
   rect.on('mouseup', function (e) {
-
     isMouseDown = false
     CTM_function (e)
     $(this).attr({
-      'x': Math.round(SVGPoint.x - 125),
-      'y': Math.round(SVGPoint.y - 125)
+      'x': Math.round(SVGPoint.x - 40),
+      'y': Math.round(SVGPoint.y - 40)
     })
-    moveNow()
-
+    moveNow(rect)
   })
 }
 
@@ -221,15 +214,10 @@ function moveArea() {
 
 function del(x) {
   let y =
-
     $(x.view).find('.del_btn')
-
       .on('click', function () {
-
         $(this).parent().remove()
-
       }).end()
-
   return y
 }
 
@@ -238,46 +226,37 @@ function del(x) {
 function showList() {
 
   data.maps.forEach((map, mapID) => { // Map 迴圈
-
     $('.maps_name span').append(map.name)
     $(myMap(map.map_url)).appendTo('.img_div')
 
     map.areas.forEach((area, areaID) => { // Area in Maps
-
       let areaHtml = {
         view: myArea(area.name),
         key : area._id,
         self: map.areas
       }
-
       $(del(areaHtml)).appendTo('.groups')
 
       area.devices.forEach((device, deviceID) => { // 區域中的設備
 
         device.list.forEach((imgs, imgsID) => {
           image_switch(imgs.value)
-
           let _devicesMap = makeSVG('image',{
-
             class : 'device_icon',
             x     : device.x, 
             y     : device.y,
             width : 30, 
             height: 30, 
             href  : _icon
-
           })
           let deviceHtml = {
-
             view: myDevice(device.name, _icon, imgs.value),
             key : device._id,
             self: area.devices
-
           }
-
           $(_devicesMap)    .appendTo('#svg');
-          $(del(deviceHtml)).appendTo('.items')
-
+          $(del(deviceHtml)).appendTo('.items');
+          moveDev();
         })
       })
     })
@@ -285,11 +264,8 @@ function showList() {
 };
 
 // 將定義好的函數全部執行一次
-
-showList(); 
-moveArea();
-moveDev ();
-
+showList   (); 
+createAreas();
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 縮放按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -299,16 +275,13 @@ $(() => {
   let opa     = 0;
 
   function init() {
-
     $('#svg').css({
       'width' : _width,
       'height': _height
     })
-
     $('.homer').css({
       'opacity' : opa
     })
-
   };
   init();
 
@@ -334,6 +307,21 @@ $(() => {
       init()
     );
   });
+
+  $('#store').on('click',function(){
+    $('#addArea').attr({
+      'value' : 'add_off'
+    })
+    console.log($('#addArea').attr('value'))
+  })
+
+  $('#addArea').on('click',function(){
+    $('#addArea').attr({
+      'value' : 'add_on'
+    })
+    console.log($('#addArea').attr('value'))
+  })
+
 })
 
 
