@@ -182,12 +182,15 @@ button {
                     color: $color_function;
 
                     button,
-                    label
-                    {
+                    label{
                         display         : inline-block;
-                        font-size       : 20px;
+                        font-size       : 15px;
                         font-weight     : 700;
-                        margin          : 5px;
+                        margin          : 3px;
+                    }
+
+                    #addArea{
+                        margin-bottom   : 3px !important;
                     }
                 }
 
@@ -226,12 +229,12 @@ button {
                 background-color: $color_function;
 
                 img,p {
-                    display: inline-block;
+                    display   : inline-block;
                 }
 
                 img {
-                    width    : 30px;
-                    height   : 30px;
+                    width     : 30px;
+                    height    : 30px;
                 }
 
                 p {

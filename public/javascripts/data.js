@@ -16,8 +16,8 @@ let data = {
       areas   : [
         {
           name   : 'BedRoom',
-          x      : 0,
-          y      : 0,
+          x      : 958,
+          y      : 148,
           width  : 0,
           height : 0,
           color  : BedRoom_color,
@@ -476,8 +476,8 @@ let data = {
         },
         {
           name   : 'LivingRoom',
-          x      : 0,
-          y      : 0,
+          x      : 1117,
+          y      : 721,
           width  : 0,
           height : 0,
           color  : BedRoom_color,
@@ -487,8 +487,8 @@ let data = {
         },
         {
           name   : 'Toilet',
-          x      : 0,
-          y      : 0,
+          x      : 496,
+          y      : 584,
           width  : 0,
           height : 0,
           color  : BedRoom_color,

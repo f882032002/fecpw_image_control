@@ -17,6 +17,21 @@ $(document).ready(() => {                     // 一開始時就讓整份文件�
   })
 });
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Current Transform Matrix ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+function CTM_function (a){                                // CTM 轉換矩陣
+
+  const clientPoint = svg.createSVGPoint()
+  const CTM         = svg.getScreenCTM()
+  
+  let z =  
+  clientPoint.x = a.clientX
+  clientPoint.y = a.clientY
+  SVGPoint      = clientPoint.matrixTransform(CTM.inverse())
+
+  return z
+}
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ SVG add ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 function makeSVG(tag, attrs) {       // 讓 HTML 讀懂 SVG 
@@ -57,7 +72,8 @@ function myDeviceOnMap(a, b, c) {    // 從後端 GET 到的設備資料顯示�
 let del_area_btn = `
   <button class = "${btn.del.name}">
     ${btn.del.icon}
-  </button>`
+  </button>
+  `
 
 function myArea(c) {                                    // 區域清單模板
   return `
@@ -88,31 +104,17 @@ function myMap(d) {                                    // 地圖模板
   `
 }
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Current Transform Matrix ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-function CTM_function (a){                                // CTM 轉換矩陣
-
-  const clientPoint = svg.createSVGPoint()
-  const CTM         = svg.getScreenCTM()
-  
-  let z =  
-  clientPoint.x = a.clientX
-  clientPoint.y = a.clientY
-  SVGPoint      = clientPoint.matrixTransform(CTM.inverse())
-
-  return z
-}
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Function ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
 function moveNow(a,b) {
   let _height = a.attr('height')
+  let _width  = a.attr('width')
   if (b === true) {
     a.on('mousemove', function (e) {
       CTM_function (e)                        // 將座標轉換成 SVG 座標
       $(this).attr({
-        'x': Math.round(SVGPoint.x - (_height / 2)),
+        'x': Math.round(SVGPoint.x - (_width / 2)),
         'y': Math.round(SVGPoint.y - (_height / 2))
       })
     })
@@ -140,12 +142,13 @@ function moveDev() {                       // 讓地圖上的 Device 可被移�
   });
 
   dev_onMap.on('mouseup', function (e) {
-    let dev_h = $(this).attr('height')
+    let dev_onMap_H = $(this).height()
+    let dev_onMap_W = $(this).width()
     isMouseDown_device = false
     CTM_function (e)
     $(this).attr({
-      'x': Math.round(SVGPoint.x - (dev_h / 2)),
-      'y': Math.round(SVGPoint.y - (dev_h / 2))
+      'x': Math.round(SVGPoint.x - (dev_onMap_W / 2)),
+      'y': Math.round(SVGPoint.y - (dev_onMap_H / 2))
     })
     moveNow($(this),isMouseDown_device)
   })
@@ -161,18 +164,17 @@ function createAreas(){
     CTM_function (e)                       // 把 cilent 座標轉換到 SVG
     let button_value = $('#addArea').attr('value')
     if (button_value === "add_on"){        // 判斷按鈕的值是否為可以在地圖上新增區域
-      let _areasMap = makeSVG('rect',{
+      let _areasMap   = makeSVG('rect',{
         class : 'area_on_map',
-        x     : Math.round(SVGPoint.x - 40), 
-        y     : Math.round(SVGPoint.y - 40),
         width : 100, 
         height: 100,
+        x     : Math.round(SVGPoint.x - 50), 
+        y     : Math.round(SVGPoint.y - 50),
         fill  : 'rgba(101, 168, 166, 0.5)', 
         href  : _icon
       })  
       $('#svg image').first().after(_areasMap)
       moveArea()
-
       let name_input =`
         <input
           class       = "area_name" 
@@ -186,8 +188,6 @@ function createAreas(){
       }
 
       $(del(areaHtml)).appendTo('.groups')
-      
-      console.log(areaHtml)
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Areas Rename ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */  
 
@@ -224,12 +224,13 @@ function moveArea() {
   });
 
   area_onMap.on('mouseup', function (e) {
-
+    let area_onMap_H = $(this).height()
+    let area_onMap_W = $(this).width()
     isMouseDown_area = false
     CTM_function (e)
     $(this).attr({
-      'x': Math.round(SVGPoint.x - 40),
-      'y': Math.round(SVGPoint.y - 40)
+      'x': Math.round(SVGPoint.x - (area_onMap_W / 2)),
+      'y': Math.round(SVGPoint.y - (area_onMap_H / 2))
     })
     moveNow($(this),isMouseDown_area)
   })
@@ -259,12 +260,25 @@ function showList() {
     $(myMap(map.map_url)).appendTo('.img_div')
 
     map.areas.forEach((area, areaID) => {          // Area in Maps
+      
+      let _areasMap = makeSVG('rect',{
+        class : 'area_on_map',
+        x     : area.x, 
+        y     : area.y,
+        width : 100, 
+        height: 100,
+        fill  : 'rgba(101, 168, 166, 0.5)', 
+        href  : _icon
+      })  
       let areaHtml = {
         view: myArea(area.name),
         key : area._id,
-        self: map.areas
+        self: _areasMap
       }
+      
+      $(_areasMap)    .appendTo('#svg')
       $(del(areaHtml)).appendTo('.groups')
+      moveArea()
 
       area.devices.forEach((device, deviceID) => { // 區域中的設備
 

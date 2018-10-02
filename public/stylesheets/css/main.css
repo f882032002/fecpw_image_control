@@ -244,9 +244,13 @@ button:hover {
 #app #maps #information .function_area .img_control button,
 #app #maps #information .function_area .img_control label {
   display: inline-block;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
-  margin: 5px;
+  margin: 3px;
+}
+
+#app #maps #information .function_area .img_control #addArea {
+  margin-bottom: 3px !important;
 }
 
 #app #maps #information .function_area .maps_name {
