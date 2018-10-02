@@ -501,7 +501,14 @@ let data = {
   ]
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
+let btn = {                              // 定義好按鈕中的名字與 HTML
+  del: {
+    name: 'del_btn',
+    icon: 'x'
+  }
+}
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -573,7 +580,7 @@ function image_switch (x){
 //           name   :'area1', 
 //           x      :0, 
 //           y      :0, 
-//           color  :'#000000', 
+//           color  :'色票', 
 //           point  :'1234, 234, 2345, 234',
 //           devices:[
 //             {

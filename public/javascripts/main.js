@@ -10,15 +10,12 @@ function width_init() {                       // 讓整份文件與螢幕等高
     'height': window_h
   })
 }
-
 $(document).ready(() => {                     // 一開始時就讓整份文件與螢幕等高
   width_init()
   $(window).resize(() => {                    // 調整視窗大小時與螢幕一起調整高度
     width_init()
   })
 });
-
-
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ SVG add ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -27,15 +24,6 @@ function makeSVG(tag, attrs) {       // 讓 HTML 讀懂 SVG
     for (var k in attrs)
       el.setAttribute(k, attrs[k]);
   return el ;
-}
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-let btn = {                              // 定義好按鈕中的名字與 HTML
-  del: {
-    name: 'del_btn',
-    icon: 'x'
-  }
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -66,12 +54,15 @@ function myDeviceOnMap(a, b, c) {    // 從後端 GET 到的設備資料顯示�
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Area li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
+let del_area_btn = `
+  <button class = "${btn.del.name}">
+    ${btn.del.icon}
+  </button>`
+
 function myArea(c) {                                    // 區域清單模板
   return `
     <li class = "area">${c}
-      <button class = "${btn.del.name}">
-        ${btn.del.icon}
-      </button>
+      ${del_area_btn}
     </li>  
   `
 }
@@ -115,20 +106,21 @@ function CTM_function (a){                                // CTM 轉換矩陣
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Function ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
-function moveNow(x,y) {
-  let _height = x.attr('height')
-  if (y === true) {
-    x.on('mousemove', function (e) {
-      CTM_function (e)                         // 將座標轉換成 SVG 座標
+function moveNow(a,b) {
+  let _height = a.attr('height')
+  if (b === true) {
+    a.on('mousemove', function (e) {
+      CTM_function (e)                        // 將座標轉換成 SVG 座標
       $(this).attr({
         'x': Math.round(SVGPoint.x - (_height / 2)),
         'y': Math.round(SVGPoint.y - (_height / 2))
       })
     })
   } else {
-    x.off('mousemove')
+    a.off('mousemove')
   }
 }
+
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device On Map Move It ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -137,26 +129,25 @@ function moveDev() {                       // 讓地圖上的 Device 可被移�
   let dev_onMap = svg.find('.device_icon')
 
   dev_onMap.on('mousedown', function (e) {
-
-    isMouseDown_device = true
-    isMouseDown_area   = false
-
-    CTM_function (e)
-    moveNow(dev_onMap,isMouseDown_device)
+    
+    if (isMouseDown_area === true){
+      console.log(isMouseDown_device)
+    }else{
+      isMouseDown_device = true
+      CTM_function (e)
+      moveNow($(this),isMouseDown_device)
+    }
   });
 
   dev_onMap.on('mouseup', function (e) {
     let dev_h = $(this).attr('height')
-
     isMouseDown_device = false
-    isMouseDown_area   = false
-
     CTM_function (e)
     $(this).attr({
-      'x': Math.round(SVGPoint.x - (dev_h/2)),
-      'y': Math.round(SVGPoint.y - (dev_h/2))
+      'x': Math.round(SVGPoint.x - (dev_h / 2)),
+      'y': Math.round(SVGPoint.y - (dev_h / 2))
     })
-    moveNow(dev_onMap,isMouseDown_device)
+    moveNow($(this),isMouseDown_device)
   })
 }
 
@@ -167,70 +158,86 @@ function createAreas(){
   let svg = $('#svg')
   
   svg.on('mousedown',function(e){
-    CTM_function (e)
+    CTM_function (e)                       // 把 cilent 座標轉換到 SVG
     let button_value = $('#addArea').attr('value')
     if (button_value === "add_on"){        // 判斷按鈕的值是否為可以在地圖上新增區域
       let _areasMap = makeSVG('rect',{
         class : 'area_on_map',
         x     : Math.round(SVGPoint.x - 40), 
         y     : Math.round(SVGPoint.y - 40),
-        width : 80, 
-        height: 80,
-        name  : 'rect_name',
+        width : 100, 
+        height: 100,
         fill  : 'rgba(101, 168, 166, 0.5)', 
         href  : _icon
-      })
-      $(_areasMap).appendTo('#svg');
+      })  
+      $('#svg image').first().after(_areasMap)
       moveArea()
-      let area_name = $(_areasMap).attr('name')
+
+      let name_input =`
+        <input
+          class       = "area_name" 
+          type        = "text"
+          placeholder = "Enter the name."
+        >
+      `
       let areaHtml  = {
-        view: myArea(area_name),
+        view: myArea('area'),
         self: _areasMap
       }
+
       $(del(areaHtml)).appendTo('.groups')
+      
+      console.log(areaHtml)
+
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Areas Rename ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */  
+
+      $('.area_name').focus(function(){
+        $(this).css('background-color','red')
+      })
+      $('.area_name').blur(function(){
+        $(this).css('background-color','white')
+      })
     }else{
       console.log('You can not add areas')
     } 
   })
-  
+ 
 }
+
+
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Areas On Map ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 function moveArea() {
   let svg         = $('#svg')
-  let rect        = svg.find('rect')
+  let area_onMap  = svg.find('rect')
 
-  rect.on('mousedown', function (e) {
-
-    isMouseDown_device = false
-    isMouseDown_area   = true
-
-    CTM_function (e)
-    moveNow(rect,isMouseDown_area)
+  area_onMap.on('mousedown', function (e) {
+    
+    if(isMouseDown_device === true){
+      console.log(isMouseDown_area)
+    }else{
+      isMouseDown_area = true
+      CTM_function (e)
+      moveNow ($(this),isMouseDown_area)
+    }
   });
 
-  rect.on('mouseup', function (e) {
+  area_onMap.on('mouseup', function (e) {
 
-    isMouseDown_device = false
-    isMouseDown_area   = false
-
+    isMouseDown_area = false
     CTM_function (e)
     $(this).attr({
       'x': Math.round(SVGPoint.x - 40),
       'y': Math.round(SVGPoint.y - 40)
     })
-    moveNow(rect,isMouseDown_area)
+    moveNow($(this),isMouseDown_area)
   })
-
-  // rect.on('mouseenter', function (e) {
-  //   console.log(e)
-  // });
 }
 
 
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Event ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Delete Button Event ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
 function del(x) {
