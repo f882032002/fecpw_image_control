@@ -1,4 +1,7 @@
+
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ all ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
 html,
 body {
     margin          : 0;
@@ -6,61 +9,40 @@ body {
     font            : 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     min-width       : 1024px;
     background-color: $color_main;
-}
-
-li {
-    list-style: none;
-}
-
-button {
-    outline: none;
-    border : none;
-    cursor : pointer;
-
-    &:hover {
-        opacity: 0.7;
-    }
-}
-
-.title {
-    text-align      : center;
-    color           : $color_function;
-    padding         : 15px 0;
-    background-color: $color_main;
-
-    h1 {
-        margin: 0;
-    }
-}
-
-
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-::-webkit-scrollbar {
-    width: 13px;
+    ::-webkit-scrollbar {
+        width: 13px;
+    }
+
+    /* 滾動條整體 */
+    ::-webkit-scrollbar-track {
+        background-color: $color_main;
+    }
+
+    /* 外層軌道*/
+    ::-webkit-scrollbar-track-piece {
+        background-color: $color_main;
+    }
+
+    /* 內層軌道，除去滾動條中間部分 */
+    ::-webkit-scrollbar-corner {
+        background-color: $color_main;
+    }
+
+    /* 邊角 */
+    ::-webkit-scrollbar-thumb {
+        border          : solid 3px $color_main;
+        background-color: $color_function;
+    }
 }
 
-/* 滾動條整體 */
-::-webkit-scrollbar-track {
-    background-color: $color_main;
-}
 
-/* 外層軌道*/
-::-webkit-scrollbar-track-piece {
-    background-color: $color_main;
-}
 
-/* 內層軌道，除去滾動條中間部分 */
-::-webkit-scrollbar-corner {
-    background-color: $color_main;
-}
 
-/* 邊角 */
-::-webkit-scrollbar-thumb {
-    border          : solid 3px $color_main;
-    background-color: $color_function;
-}
+
+
 
 
 
@@ -71,6 +53,31 @@ button {
     justify-content : space-between;
     align-items     : flex-start;
     background-color: $color_function;
+
+    li {
+        list-style: none;
+    }
+    
+    button {
+        outline: none;
+        border : none;
+        cursor : pointer;
+    
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    
+    .title {
+        text-align      : center;
+        color           : $color_function;
+        padding         : 15px 0;
+        background-color: $color_main;
+    
+        h1 {
+            margin: 0;
+        }
+    }
 
     /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -95,9 +102,9 @@ button {
                 margin          : 0 auto;
                 margin-bottom   : 10px;
                 background-color: $color_function;
-
-                .del_btn,
-                .new_btn {
+                
+                
+                .del_btn{
                     position        : absolute;
                     top             : 50%;
                     right           : 0px;
@@ -108,10 +115,9 @@ button {
                     color           : $color_main;
                     background-color: transparent;
                 }
-
-                .new_btn {
-                    top : 50%;
-                    right: 20px;
+                
+                p{
+                    margin : 0;
                 }
             }
         }
@@ -127,7 +133,7 @@ button {
         #map_img {
             position        : relative;
             width           : 100%;
-            height          : 79.2%;
+            height          : 79.5%;
             overflow        : auto;
             background-color: $color_mask;
 
@@ -136,6 +142,11 @@ button {
                 color   : black;
                 width   : 100%;
                 height  : 100%;
+
+                #svg {
+                    border    : solid 2px black;
+                    box-sizing: border-box;
+                }
 
             }
         }
@@ -246,7 +257,3 @@ button {
     }
 }
 
-#svg {
-    border    : solid 2px black;
-    box-sizing: border-box;
-}

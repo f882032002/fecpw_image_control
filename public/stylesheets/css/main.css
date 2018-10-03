@@ -55,60 +55,35 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   min-width: 1024px;
   background-color: #65A8A6;
+  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+  /* 滾動條整體 */
+  /* 外層軌道*/
+  /* 內層軌道，除去滾動條中間部分 */
+  /* 邊角 */
 }
 
-li {
-  list-style: none;
-}
-
-button {
-  outline: none;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.7;
-}
-
-.title {
-  text-align: center;
-  color: #F8ECC2;
-  padding: 15px 0;
-  background-color: #65A8A6;
-}
-
-.title h1 {
-  margin: 0;
-}
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ ScrollBar ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-::-webkit-scrollbar {
+html ::-webkit-scrollbar,
+body ::-webkit-scrollbar {
   width: 13px;
 }
 
-/* 滾動條整體 */
-
-::-webkit-scrollbar-track {
+html ::-webkit-scrollbar-track,
+body ::-webkit-scrollbar-track {
   background-color: #65A8A6;
 }
 
-/* 外層軌道*/
-
-::-webkit-scrollbar-track-piece {
+html ::-webkit-scrollbar-track-piece,
+body ::-webkit-scrollbar-track-piece {
   background-color: #65A8A6;
 }
 
-/* 內層軌道，除去滾動條中間部分 */
-
-::-webkit-scrollbar-corner {
+html ::-webkit-scrollbar-corner,
+body ::-webkit-scrollbar-corner {
   background-color: #65A8A6;
 }
 
-/* 邊角 */
-
-::-webkit-scrollbar-thumb {
+html ::-webkit-scrollbar-thumb,
+body ::-webkit-scrollbar-thumb {
   border: solid 3px #65A8A6;
   background-color: #F8ECC2;
 }
@@ -129,6 +104,31 @@ button:hover {
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ area Group ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ maps ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ device ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+}
+
+#app li {
+  list-style: none;
+}
+
+#app button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+#app button:hover {
+  opacity: 0.7;
+}
+
+#app .title {
+  text-align: center;
+  color: #F8ECC2;
+  padding: 15px 0;
+  background-color: #65A8A6;
+}
+
+#app .title h1 {
+  margin: 0;
 }
 
 #app #areaGroup {
@@ -156,8 +156,7 @@ button:hover {
   background-color: #F8ECC2;
 }
 
-#app #areaGroup .groups .area .del_btn,
-#app #areaGroup .groups .area .new_btn {
+#app #areaGroup .groups .area .del_btn {
   position: absolute;
   top: 50%;
   right: 0px;
@@ -170,9 +169,8 @@ button:hover {
   background-color: transparent;
 }
 
-#app #areaGroup .groups .area .new_btn {
-  top: 50%;
-  right: 20px;
+#app #areaGroup .groups .area p {
+  margin: 0;
 }
 
 #app #maps {
@@ -185,7 +183,7 @@ button:hover {
 #app #maps #map_img {
   position: relative;
   width: 100%;
-  height: 79.2%;
+  height: 79.5%;
   overflow: auto;
   background-color: rgba(255, 192, 203, 0.4);
 }
@@ -195,6 +193,12 @@ button:hover {
   color: black;
   width: 100%;
   height: 100%;
+}
+
+#app #maps #map_img .img_div #svg {
+  border: solid 2px black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 #app #maps #information {
@@ -298,11 +302,5 @@ button:hover {
 #app #device .items .item p {
   width: 80%;
   text-align: center;
-}
-
-#svg {
-  border: solid 2px black;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
 }
 

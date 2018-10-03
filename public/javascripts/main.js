@@ -43,64 +43,30 @@ function makeSVG(tag, attrs) {       // 讓 HTML 讀懂 SVG
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myDevice(a, b, c) {                            // 設備清單的模板
-  return `
-    <li class = "item" name = "${c}">
-      <img src = "${b}" alt = "">
-      <p>
-        ${a}
-      </p>
-    </li>  
-  `
+function myDevice(a, b, c) {                           
+  return `<li class="item" name="${c}"><img src="${b}" alt=""><p>${a}</p></li>`
 }
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device On Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myDeviceOnMap(a, b, c) {    // 從後端 GET 到的設備資料顯示於畫面上的模板
-  return `
-    <image class  = "device_icon" 
-          x      = "${a}" 
-          y      = "${b}" 
-          width  = "30" 
-          height = "30" 
-          href   = "${c}">
-    </image>
-  `
+function myDeviceOnMap(a, b, c) {    
+  return `<image class="device_icon" x="${a}" y="${b}" width="30" height="30" href="${c}"></image>`
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Area li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-let del_area_btn = `
-  <button class = "${btn.del.name}">
-    ${btn.del.icon}
-  </button>
-  `
+let del_area_btn = `<button class = "${btn.del.name}">${btn.del.icon}</button>`
 
-function myArea(c) {                                    // 區域清單模板
-  return `
-    <li class = "area">${c}
-      ${del_area_btn}
-    </li>  
-  `
+function myArea(c) {                                    
+  return `<li class = "area" title="點我兩下編輯區域名稱"><p>${c}</p>${del_area_btn}</li>`
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myMap(d) {                                    // 地圖模板
+function myMap(d) {                                  
   return `
-    <svg width   = "1900" 
-         height  = "1000" 
-         id      = "svg" 
-         viewBox = "0 0 1900 1000" 
-         xmlns   = "http://www.w3.org/1999/xhtml" >
-
-      <image x      = "0" 
-             y      = "0" 
-             width  = "1900" 
-             height = "1000" 
-             href   = "${d}">
-      </image>
-
-    </svg>
+  <svg width="1900" height="1000" id="svg" viewBox="0 0 1900 1000" xmlns="http://www.w3.org/1999/xhtml" >
+    <image x= "0" y="0" width="1900" height="1000" href="${d}"></image>
+  </svg>
   `
 }
 
@@ -173,38 +139,62 @@ function createAreas(){
         fill  : 'rgba(101, 168, 166, 0.5)', 
         href  : _icon
       })  
-      $('#svg image').first().after(_areasMap)
+      $('#svg image').first().after(_areasMap,del_area_btn)
       moveArea()
-      let name_input =`
-        <input
-          class       = "area_name" 
-          type        = "text"
-          placeholder = "Enter the name."
-        >
-      `
       let areaHtml  = {
-        view: myArea('area'),
+        view: myArea('Unnamed(點擊兩下編輯名稱)'),
         self: _areasMap
       }
-
       $(del(areaHtml)).appendTo('.groups')
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Areas Rename ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */  
-
-      $('.area_name').focus(function(){
-        $(this).css('background-color','red')
-      })
-      $('.area_name').blur(function(){
-        $(this).css('background-color','white')
-      })
-    }else{
+      renameArea ()
+    } else {
       console.log('You can not add areas')
     } 
   })
- 
 }
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Areas Rename ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */  
 
+function renameArea (){
+
+  $('.area p').off().on('dblclick',function(){
+    var input_val = $(this).text() 
+    let name_input = $('<input/>').attr({
+      class       : 'area_name',
+      type        : 'text',
+      value       : input_val,
+      placeholder : 'Enter the name.'
+    })
+    
+    $(this).empty()                  // 清空 p
+      .append(name_input)            // 加入 input
+      .find('input')                 // 找到剛加入的 input
+      .focus()                       // 讓他事件一開始就處於被選取狀態
+      .blur(function(){              // 解除 focus 後
+        input_Rename(this,input_val)
+      })
+
+    $(name_input).keydown(function(event){ 
+      let key_Enter = event.which
+      if(key_Enter == 13){
+        input_Rename(this,input_val)
+      }
+    });  
+  })
+}
+
+function input_Rename(x,y){
+  let areaInput = x.value   // 將 input 內的值帶入 p 中
+  if (areaInput === ''){       // 如果 input 沒有輸入東西 
+    $(x).parent()           // 則返回原本的內容
+      .html(y)
+  } else {                     // 如果 input 有輸入東西
+    $(x).parent()           // 就將 p 中的文字代換成 input 輸入的值
+      .html(areaInput)
+    y = areaInput
+  }
+}
+  
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Move Areas On Map ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
@@ -255,12 +245,12 @@ function del(x) {
 
 function showList() {
 
-  data.maps.forEach((map, mapID) => {              // Map 迴圈
+  data.maps.forEach((map, mapID) => {
     $('.maps_name span').append(map.name)
     $(myMap(map.map_url)).appendTo('.img_div')
 
     map.areas.forEach((area, areaID) => {          // Area in Maps
-      
+
       let _areasMap = makeSVG('rect',{
         class : 'area_on_map',
         x     : area.x, 
@@ -275,11 +265,10 @@ function showList() {
         key : area._id,
         self: _areasMap
       }
-      
-      $(_areasMap)    .appendTo('#svg')
+      $('#svg image').first().after(_areasMap)
       $(del(areaHtml)).appendTo('.groups')
       moveArea()
-
+      renameArea ()
       area.devices.forEach((device, deviceID) => { // 區域中的設備
 
         device.list.forEach((imgs, imgsID) => {
@@ -311,7 +300,7 @@ function showList() {
 showList   (); 
 createAreas();
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 縮放按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Buttons ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 $(() => {
   let _width  = 1900;                        // 初始寬度
@@ -330,7 +319,7 @@ $(() => {
   init();
 
 
-  $('#zoom').on('click', function () {       // 放大圖片
+  $('#zoom').on('click', function () {       // Zoom Image
     (_width == 5700, _height == 3000) ? (
       console.log('Has been max width !!')
     ) : (
@@ -341,7 +330,7 @@ $(() => {
     );
   });
 
-  $('#zoom_Out').on('click', function () {  // 縮小圖片
+  $('#zoom_Out').on('click', function () {  // Zoom Out Image
     (_width == 1900, _height == 1000) ? (
       console.log('Has been min width !!')
     ) : (
