@@ -11,7 +11,7 @@ let BedRoom_color    = '#CEBEEB'
 let data = {
   maps: [ // 地圖們
     { // 一樓平面圖
-      name    : '1F',
+      name    : 'First Floor',
       map_url : '/images_map/1F.png',
       areas   : [
         {

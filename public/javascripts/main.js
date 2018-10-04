@@ -5,6 +5,10 @@ let window_h           = $(window).height();  // 螢幕高度
 let isMouseDown_device = false                // 預設為 false
 let isMouseDown_area   = false                // 預設為 false
 
+document.oncontextmenu = function() {         // 阻止預設右鍵彈出
+  return false;
+}
+
 function width_init() {                       // 讓整份文件與螢幕等高
   $('#app').css({
     'height': window_h
@@ -74,19 +78,21 @@ function myMap(d) {
 
 
 function moveNow(a,b) {
+  let svg     = $('#svg')
   let _height = a.attr('height')
   let _width  = a.attr('width')
-  if (b === true) {
-    a.on('mousemove', function (e) {
+  svg.on('mousemove', e => {
+    if (b === true && e.which === 1 ) {
       CTM_function (e)                        // 將座標轉換成 SVG 座標
-      $(this).attr({
+      console.log(e.target)
+      $(a).attr({
         'x': Math.round(SVGPoint.x - (_width / 2)),
         'y': Math.round(SVGPoint.y - (_height / 2))
-      })
-    })
-  } else {
-    a.off('mousemove')
-  }
+      }) 
+    } else {
+      svg.off('mousemove')
+    }
+  })
 }
 
 
@@ -96,27 +102,28 @@ function moveDev() {                       // 讓地圖上的 Device 可被移�
   let svg       = $('#svg')
   let dev_onMap = svg.find('.device_icon')
 
-  dev_onMap.on('mousedown', function (e) {
+  dev_onMap.on('mousedown', e => {
     
-    if (isMouseDown_area === true){
-      console.log(isMouseDown_device)
-    }else{
+    if (isMouseDown_area === false && e.which === 1){
       isMouseDown_device = true
       CTM_function (e)
-      moveNow($(this),isMouseDown_device)
+      moveNow($(e.target),isMouseDown_device)
     }
   });
 
-  dev_onMap.on('mouseup', function (e) {
-    let dev_onMap_H = $(this).height()
-    let dev_onMap_W = $(this).width()
+  dev_onMap.on('mouseup', e => {
+    let dev_onMap_H = $(e.target).height()
+    let dev_onMap_W = $(e.target).width()
     isMouseDown_device = false
-    CTM_function (e)
-    $(this).attr({
-      'x': Math.round(SVGPoint.x - (dev_onMap_W / 2)),
-      'y': Math.round(SVGPoint.y - (dev_onMap_H / 2))
-    })
-    moveNow($(this),isMouseDown_device)
+    if (isMouseDown_area === false && e.which === 1){
+      CTM_function (e)
+      $(e.target).attr({
+        'x': Math.round(SVGPoint.x - (dev_onMap_W / 2)),
+        'y': Math.round(SVGPoint.y - (dev_onMap_H / 2))
+      })
+    }
+    
+    moveNow($(e.target),isMouseDown_device)
   })
 }
 
@@ -126,7 +133,7 @@ function moveDev() {                       // 讓地圖上的 Device 可被移�
 function createAreas(){
   let svg = $('#svg')
   
-  svg.on('mousedown',function(e){
+  svg.on('mousedown',e => {
     CTM_function (e)                       // 把 cilent 座標轉換到 SVG
     let button_value = $('#addArea').attr('value')
     if (button_value === "add_on"){        // 判斷按鈕的值是否為可以在地圖上新增區域
@@ -157,8 +164,8 @@ function createAreas(){
 
 function renameArea (){
 
-  $('.area p').off().on('dblclick',function(){
-    var input_val = $(this).text() 
+  $('.area p').off().on('dblclick',e => {
+    var input_val = $(e.target).text() 
     let name_input = $('<input/>').attr({
       class       : 'area_name',
       type        : 'text',
@@ -166,30 +173,29 @@ function renameArea (){
       placeholder : 'Enter the name.'
     })
     
-    $(this).empty()                  // 清空 p
+    $(e.target).empty()                  // 清空 p
       .append(name_input)            // 加入 input
       .find('input')                 // 找到剛加入的 input
       .focus()                       // 讓他事件一開始就處於被選取狀態
-      .blur(function(){              // 解除 focus 後
-        input_Rename(this,input_val)
+      .blur(e => {              // 解除 focus 後
+        input_Rename(e.target,input_val)
       })
 
-    $(name_input).keydown(function(event){ 
-      let key_Enter = event.which
-      if(key_Enter == 13){
-        input_Rename(this,input_val)
+    $(name_input).keydown(e => { 
+      if(e.which == 13){
+        input_Rename(e.target,input_val)
       }
     });  
   })
 }
 
 function input_Rename(x,y){
-  let areaInput = x.value   // 將 input 內的值帶入 p 中
+  let areaInput = x.value      // 將 input 內的值帶入 p 中
   if (areaInput === ''){       // 如果 input 沒有輸入東西 
-    $(x).parent()           // 則返回原本的內容
+    $(x).parent()              // 則返回原本的內容
       .html(y)
   } else {                     // 如果 input 有輸入東西
-    $(x).parent()           // 就將 p 中的文字代換成 input 輸入的值
+    $(x).parent()              // 就將 p 中的文字代換成 input 輸入的值
       .html(areaInput)
     y = areaInput
   }
@@ -202,27 +208,28 @@ function moveArea() {
   let svg         = $('#svg')
   let area_onMap  = svg.find('rect')
 
-  area_onMap.on('mousedown', function (e) {
-    
-    if(isMouseDown_device === true){
-      console.log(isMouseDown_area)
-    }else{
+  area_onMap.on('mousedown', e => {
+
+    if(isMouseDown_device === false && e.which === 1){
       isMouseDown_area = true
       CTM_function (e)
-      moveNow ($(this),isMouseDown_area)
+      moveNow ($(e.target),isMouseDown_area)
     }
   });
 
-  area_onMap.on('mouseup', function (e) {
-    let area_onMap_H = $(this).height()
-    let area_onMap_W = $(this).width()
+  area_onMap.on('mouseup', e => {
+    let area_onMap_H = $(e.target).height()
+    let area_onMap_W = $(e.target).width()
     isMouseDown_area = false
-    CTM_function (e)
-    $(this).attr({
-      'x': Math.round(SVGPoint.x - (area_onMap_W / 2)),
-      'y': Math.round(SVGPoint.y - (area_onMap_H / 2))
-    })
-    moveNow($(this),isMouseDown_area)
+    if(isMouseDown_device === false && e.which === 1){
+      CTM_function (e)
+      $(e.target).attr({
+        'x': Math.round(SVGPoint.x - (area_onMap_W / 2)),
+        'y': Math.round(SVGPoint.y - (area_onMap_H / 2))
+      })
+    }
+    
+    moveNow($(e.target),isMouseDown_area)
   })
 }
 
@@ -281,6 +288,7 @@ function showList() {
             height: 30, 
             href  : _icon
           })
+
           let deviceHtml = {
             view: myDevice(device.name, _icon, imgs.value),
             key : device._id,
@@ -343,18 +351,39 @@ $(() => {
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 儲存按鈕與新增按鈕 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-  $('#store').on('click',function(){                 // 儲存按鈕
+  $('#store').on('click',() => {                 // 儲存按鈕
     $('#addArea').attr({
       'value' : 'add_off'
     })
   });
 
-  $('#addArea').on('click',function(){               // 新增區域按鈕
+  $('#addArea').on('click',() => {               // 新增區域按鈕
     $('#addArea').attr({
       'value' : 'add_on'
     })
   });
 
+  
+  $(".img_div").on('mousedown',e => {
+    let _function_width  = e.target.attributes.width.value
+    let _function_height = e.target.attributes.height.value
+    let _function_top    = e.target.attributes.y.value
+    let _function_left   = e.target.attributes.x.value
+    console.log(_function_width)
+    if (e.which === 3) {    // 如果點的是右鍵
+     
+      $('.dev_function').css({
+        'opacity'  : 1,
+        'top'      : _function_top + 'px',
+        'left'     : _function_left + 'px',
+        'transform': 'translateX' + '(' + _function_width + 'px)' + 'translateY' + '(' + (_function_height / 2) + 'px)' 
+      })
+    } else {
+      $('.dev_function').css({
+        'opacity'  : 0,
+      })
+    }
+  }) 
 })
 
 

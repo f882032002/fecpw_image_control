@@ -195,6 +195,20 @@ body ::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
+#app #maps #map_img .img_div .dev_function {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  -webkit-transform: translateX(0px) translateY(0px);
+          transform: translateX(0px) translateY(0px);
+  background-color: rgba(100, 100, 100, 0.8);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 0;
+}
+
 #app #maps #map_img .img_div #svg {
   border: solid 2px black;
   -webkit-box-sizing: border-box;
