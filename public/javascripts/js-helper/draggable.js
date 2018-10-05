@@ -29,30 +29,22 @@ $(() => {
       top : 22,
       left: 21
     },
-
     start: function (event, ui) {  // 拖動開始時
 
       dra_start (ui)
 
     },
-
-
     drag: function (event, ui) {   // 拖動進行中
 
       CTM_function (event)
     },
-
-
     stop: function (event, ui) {   // 拖動停止後
-      
       CTM_function (event)
       let name = ui.helper[0].attributes.name.value
       let _x   = Math.round(SVGPoint.x - 15)
       let _y   = Math.round(SVGPoint.y - 15)
-
       // 用 name 判斷並抓出圖片
       image_switch(name)
-      
       var _image = makeSVG('image',{
         class : 'device_icon',
         x     : _x, 
@@ -61,15 +53,12 @@ $(() => {
         height: 30, 
         href  : _icon  
       })
-      
       $(_image).appendTo('#svg');
       $(event.target).fadeOut()
       moveDev();
-
       $('#map_img').css({
         'background-color' : 'rgba(255,192,203,0.3)'
       });
-
     },
   });
 

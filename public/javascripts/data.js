@@ -6,6 +6,15 @@ let LivingRoom_color = '#93CEE6'
 let BedRoom_color    = '#CEBEEB'
 
 
+/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 負責接收新資料的地方 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
+
+
+let newMaps   = []
+let newAreas  = []
+let newDevices= []
+
+
+
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let data = {

@@ -5,6 +5,7 @@ let window_h           = $(window).height();  // 螢幕高度
 let isMouseDown_device = false                // 預設為 false
 let isMouseDown_area   = false                // 預設為 false
 
+
 document.oncontextmenu = function() {         // 阻止預設右鍵彈出
   return false;
 }
@@ -60,16 +61,16 @@ function myDeviceOnMap(a, b, c) {
 
 let del_area_btn = `<button class = "${btn.del.name}">${btn.del.icon}</button>`
 
-function myArea(c) {                                    
-  return `<li class = "area" title="點我兩下編輯區域名稱"><p>${c}</p>${del_area_btn}</li>`
+function myArea(a,b) {                                    
+  return `<li class = "area" data-id="${b}" title="點我兩下編輯區域名稱"><p>${a}</p>${del_area_btn}</li>`
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
-function myMap(d) {                                  
+function myMap(a) {                                  
   return `
   <svg width="1900" height="1000" id="svg" viewBox="0 0 1900 1000" xmlns="http://www.w3.org/1999/xhtml" >
-    <image x= "0" y="0" width="1900" height="1000" href="${d}"></image>
+    <image x= "0" y="0" width="1900" height="1000" href="${a}"></image>
   </svg>
   `
 }
@@ -84,7 +85,6 @@ function moveNow(a,b) {
   svg.on('mousemove', e => {
     if (b === true && e.which === 1 ) {
       CTM_function (e)                        // 將座標轉換成 SVG 座標
-      console.log(e.target)
       $(a).attr({
         'x': Math.round(SVGPoint.x - (_width / 2)),
         'y': Math.round(SVGPoint.y - (_height / 2))
@@ -103,7 +103,6 @@ function moveDev() {                       // 讓地圖上的 Device 可被移�
   let dev_onMap = svg.find('.device_icon')
 
   dev_onMap.on('mousedown', e => {
-    
     if (isMouseDown_area === false && e.which === 1){
       isMouseDown_device = true
       CTM_function (e)
@@ -132,28 +131,46 @@ function moveDev() {                       // 讓地圖上的 Device 可被移�
 
 function createAreas(){
   let svg = $('#svg')
-  
+
   svg.on('mousedown',e => {
     CTM_function (e)                       // 把 cilent 座標轉換到 SVG
     let button_value = $('#addArea').attr('value')
+    
     if (button_value === "add_on"){        // 判斷按鈕的值是否為可以在地圖上新增區域
-      let _areasMap   = makeSVG('rect',{
-        class : 'area_on_map',
-        width : 100, 
-        height: 100,
-        x     : Math.round(SVGPoint.x - 50), 
-        y     : Math.round(SVGPoint.y - 50),
-        fill  : 'rgba(101, 168, 166, 0.5)', 
-        href  : _icon
-      })  
-      $('#svg image').first().after(_areasMap,del_area_btn)
-      moveArea()
-      let areaHtml  = {
-        view: myArea('Unnamed(點擊兩下編輯名稱)'),
-        self: _areasMap
+      let createTime   = new Date().valueOf()
+      let _areasMap = makeSVG('rect',{
+        class      : 'area_on_map',
+        'data-key' : createTime,
+        width      : 100, 
+        height     : 100,
+        x          : Math.round(SVGPoint.x - 50), 
+        y          : Math.round(SVGPoint.y - 50),
+        fill       : 'rgba(101, 168, 166, 0.5)', 
+        href       : _icon
+      }) 
+
+      let areaHtml = {
+        view       : myArea('UnNamed(點擊兩下編輯名稱)',createTime),
+        self       : _areasMap
       }
-      $(del(areaHtml)).appendTo('.groups')
-      renameArea ()
+
+      let newArea_x    = $(_areasMap).attr('x')
+      let newArea_y    = $(_areasMap).attr('y')
+
+      let newArea_data = {
+        name : $(areaHtml.view).find('p').text(),
+        id   : createTime,
+        x    : newArea_x,
+        y    : newArea_y 
+      }
+      
+      newAreas.push(newArea_data)
+      let where_is_it = $.inArray(newArea_data, newAreas) //根據 id 查找第幾個
+      $('#svg image').first().after(_areasMap)
+      $(del(areaHtml,newAreas,newArea_data)).appendTo('.groups')
+      moveArea()
+      renameArea()
+
     } else {
       console.log('You can not add areas')
     } 
@@ -165,25 +182,38 @@ function createAreas(){
 function renameArea (){
 
   $('.area p').off().on('dblclick',e => {
-    var input_val = $(e.target).text() 
+    var input_val  = $(e.target).text()
     let name_input = $('<input/>').attr({
       class       : 'area_name',
       type        : 'text',
       value       : input_val,
       placeholder : 'Enter the name.'
     })
+    let list_id = $(e.target).parent().attr('data-id')
     
-    $(e.target).empty()                  // 清空 p
+    $(e.target).empty()              // 清空 p
       .append(name_input)            // 加入 input
       .find('input')                 // 找到剛加入的 input
       .focus()                       // 讓他事件一開始就處於被選取狀態
-      .blur(e => {              // 解除 focus 後
+      .blur(e => {                   // 解除 focus 後
         input_Rename(e.target,input_val)
+        newAreas.forEach(function(areas,id){
+          if(areas.id == list_id){
+            areas.name = input_val
+           }
+        })
+        console.log(newAreas)
       })
 
     $(name_input).keydown(e => { 
       if(e.which == 13){
         input_Rename(e.target,input_val)
+        newAreas.forEach(function(areas,id){
+          if(areas.id == list_id){
+            areas.name = input_val
+           }
+        })
+        console.log(newAreas)
       }
     });  
   })
@@ -228,7 +258,6 @@ function moveArea() {
         'y': Math.round(SVGPoint.y - (area_onMap_H / 2))
       })
     }
-    
     moveNow($(e.target),isMouseDown_area)
   })
 }
@@ -238,14 +267,17 @@ function moveArea() {
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Delete Button Event ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 
-function del(x) {
-  let y =
+function del(x,y,z) {
+  let a =
     $(x.view).find('.del_btn')
       .on('click', function () {
-        $(this).parent().remove()
-        $(x.self).remove()
-      }).end()  
-  return y
+        $(this).parent().remove()      // 刪除區域清單的 list
+        $(x.self).remove()             // 刪除地圖上的區域
+        y.splice($.inArray(z, y), 1)   // 刪除區域陣列中資料
+        console.log(newAreas)
+      }).end()
+
+  return a
 }
 
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Show List ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -369,7 +401,6 @@ $(() => {
     let _function_height = e.target.attributes.height.value
     let _function_top    = e.target.attributes.y.value
     let _function_left   = e.target.attributes.x.value
-    console.log(_function_width)
     if (e.which === 3) {    // 如果點的是右鍵
      
       $('.dev_function').css({
@@ -384,6 +415,13 @@ $(() => {
       })
     }
   }) 
+
+  $('.area_on_map').on('mouseenter', e =>{
+    //console.log(e)
+  })
+  $('.area_on_map').on('mouseleave', e =>{
+    //console.log(e)
+  })
 })
 
 
