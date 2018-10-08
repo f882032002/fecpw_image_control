@@ -145,7 +145,7 @@ function createAreas(){
         height     : 100,
         x          : Math.round(SVGPoint.x - 50), 
         y          : Math.round(SVGPoint.y - 50),
-        fill       : 'rgba(101, 168, 166, 0.5)', 
+        fill       : '#fff', 
         href       : _icon
       }) 
 
@@ -165,7 +165,7 @@ function createAreas(){
       }
       
       newAreas.push(newArea_data)
-      let where_is_it = $.inArray(newArea_data, newAreas) //根據 id 查找第幾個
+      console.log(newAreas)
       $('#svg image').first().after(_areasMap)
       $(del(areaHtml,newAreas,newArea_data)).appendTo('.groups')
       moveArea()
@@ -296,7 +296,7 @@ function showList() {
         y     : area.y,
         width : 100, 
         height: 100,
-        fill  : 'rgba(101, 168, 166, 0.5)', 
+        fill  : 'rgba(0,0,0,0.4)', 
         href  : _icon
       })  
       let areaHtml = {
