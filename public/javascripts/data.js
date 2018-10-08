@@ -6,15 +6,6 @@ let LivingRoom_color = '#93CEE6'
 let BedRoom_color    = '#CEBEEB'
 
 
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 負責接收新資料的地方 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-
-let newMaps   = []
-let newAreas  = []
-let newDevices= []
-
-
-
 /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
 let data = {
@@ -508,64 +499,6 @@ let data = {
       ]
     }
   ]
-}
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Button Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-let btn = {                              // 定義好按鈕中的名字與 HTML
-  del: {
-    name: 'del_btn',
-    icon: 'x'
-  }
-}
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Object Data ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-let icon = {
-  co         : '/images/co.svg'         ,
-  co2        : '/images/co2.svg'        ,
-  pir        : '/images/pir.svg'        ,
-  sos        : '/images/sos.svg'        ,
-  door       : '/images/door.svg'       ,
-  smoke      : '/images/smoke.svg'      ,
-  light      : '/images/light.svg'      ,
-  water      : '/images/water.svg'      ,
-  socket     : '/images/Socket.svg'     ,
-  gateway    : '/images/gateway.svg'    ,
-  q_module   : '/images/q-module.svg'   ,
-  door_lock  : '/images/door-lock.svg'  ,
-  thermometer: '/images/Thermometer.svg',
-}
-
-/* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Icon Switch ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-let _icon; // 放入 image
-function image_switch (x){
-
-      switch (x) {
-
-        case 'ids-co'         : _icon = icon.co;          break;
-        case 'idc-sos'        : _icon = icon.thermometer; break;
-        case 'ids-co2'        : _icon = icon.co2;         break;
-        case 'ids-pir'        : _icon = icon.pir;         break;
-        case 'ids-gas'        : _icon = icon.smoke;       break;
-        case 'ids-door'       : _icon = icon.door;        break;
-        case 'idc-plug'       : _icon = icon.socket;      break;
-        case 'ids-smoke'      : _icon = icon.thermometer; break;
-        case 'ids-glass'      : _icon = icon.thermometer; break;
-        case 'ids-water'      : _icon = icon.water;       break;
-        case 'ids-light'      : _icon = icon.thermometer; break;
-        case 'ids-thermo'     : _icon = icon.thermometer; break;
-        case 'idc-gateway'    : _icon = icon.gateway;     break;
-        case 'idc-q-module'   : _icon = icon.q_module;    break;
-        case 'idc-light-rgb'  : _icon = icon.light;       break;
-        case 'idc-door-lock'  : _icon = icon.door_lock;   break;
-        case 'idc-gas-keeper' : _icon = icon.thermometer; break;
-        case 'idc-water-valve': _icon = icon.thermometer; break;
-        
-
-      };
-
 }
 
 
