@@ -1,7 +1,7 @@
 
 
 
-function fcpSCADA(){
+
   
 
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ 負責接收新資料的地方 ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -103,12 +103,7 @@ function fcpSCADA(){
   function myDevice(a, b, c) {                           
     return `<li class="item" name="${c}"><img src="${b}" alt=""><p>${a}</p></li>`
   }
-  /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Device On Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
-
-  function myDeviceOnMap(a, b, c) {    
-    return `<image class="device_icon" x="${a}" y="${b}" width="30" height="30" href="${c}"></image>`
-  }
-
+ 
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Area li Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
 
   let delAreaBtn = `<button class = "del_btn">x</button>`
@@ -121,9 +116,9 @@ function fcpSCADA(){
 
   function myMap(a) {                                  
     return `
-    <svg width="1900" height="1000" id="svg" viewBox="0 0 1900 1000" xmlns="http://www.w3.org/1999/xhtml" >
-      <image x= "0" y="0" width="1900" height="1000" href="${a}"></image>
-    </svg>
+      <svg width="1900" height="1000" id="svg" viewBox="0 0 1900 1000" xmlns="http://www.w3.org/1999/xhtml" >
+        <image x= "0" y="0" width="1900" height="1000" href="${a}"></image>
+      </svg>
     `
   }
 
@@ -522,8 +517,6 @@ function fcpSCADA(){
     });
   });
 
-}
-fcpSCADA()
 
 
 
