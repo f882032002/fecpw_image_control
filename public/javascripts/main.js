@@ -108,8 +108,8 @@
 
   let delAreaBtn = `<button class = "del_btn">x</button>`
 
-  function myArea(a,b) {                                    
-    return `<li class = "area" data-id="${b}" title="點我兩下編輯區域名稱"><p>${a}</p>${delAreaBtn}</li>`
+  function myArea(a) {                                    
+    return `<li class = "area" data-id="${a}" title="點我兩下編輯區域名稱"><p>'UnNamed(點擊兩下編輯名稱)'</p>${delAreaBtn}</li>`
   }
 
   /* ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ Map Html Template ▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼ */
@@ -193,7 +193,7 @@
         }) 
 
         let areaHtml = {
-          view       : myArea('UnNamed(點擊兩下編輯名稱)',filterKey),
+          view       : myArea(filterKey),
           self       : areasOnMap
         }
 
